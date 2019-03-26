@@ -75,7 +75,7 @@ CREATE TABLE ACTIVOS (
 	FechaCompra DATE,
 	FechaRegistro DATE,
 	Estado CHAR,
-	CentroCosto VARCHAR(10),
+	CentroCosto INT,
 	ValorResidual INT,
 	CodSede INT,
 	DetalleUbicacion VARCHAR(200)
@@ -87,6 +87,6 @@ CREATE TABLE ACTIVOS (
 		FOREIGN KEY (CodSede) REFERENCES SEDES(CodSede),
 
 	CONSTRAINT FK_ACTIVOS_CentroCosto
-		FOREIGN KEY (CentroCosto) REFERENCES DEPARTAMENTOS(idDepartamento)
+		FOREIGN KEY (CentroCosto) REFERENCES DEPARTAMENTOS(CodDepartamento)
 );
 
