@@ -1,17 +1,20 @@
 USE master
 CREATE DATABASE AdvancedInc
+GO
 
 USE AdvancedInc 
+GO
 
 CREATE TABLE USUARIOS (
 	CodUsuario INT IDENTITY(1,1),
 	Nombre VARCHAR(50),
-	Contrasena VARCHAR(50),
+	Contrasena VARCHAR(50) DEFAULT '1234',
 	Roll CHAR,
 
 	CONSTRAINT PK_CodUsuario 
 		PRIMARY KEY (CodUsuario)
 )
+
 
 CREATE TABLE DEPARTAMENTOS (
 	CodDepartamento INT IDENTITY(1,1),
@@ -43,13 +46,13 @@ CREATE TABLE SEDES (
 CREATE TABLE EMPLEADOS (
 	CodEmpleado INT IDENTITY (1,1),
 	Nombre VARCHAR(50),
-	Estado CHAR,
-	Fotgrafia IMAGE,
+	Cedula INT,
+	Fotografia IMAGE,
 	CodSede INT, 
 	CodDepartamento INT,
 	FechaIngreso DATE,
 	Puesto VARCHAR(50),
-	Cedula INT,
+	Estado CHAR,
 
 	CONSTRAINT PK_CodEmpleado 
 		PRIMARY KEY (CodEmpleado),
@@ -69,22 +72,26 @@ CREATE TABLE ACTIVOS (
 	Categoria VARCHAR(50),
 	Foto IMAGE, 
 	PrecioCompra INT,
-	TiempoGarantia DATE,
 	VidaUtil INT, /*DIAS*/
-	PtjeDepreciacion FLOAT,
+	PjeDepreciacion FLOAT,
 	FechaCompra DATE,
 	FechaRegistro DATE,
-	Estado CHAR,
-	CentroCosto INT,
+	FechaGarantia DATE,
 	ValorResidual INT,
+	CentroCosto INT,
+	CodEmpleado INT,
 	CodSede INT,
-	DetalleUbicacion VARCHAR(200)
+	DetalleUbicacion VARCHAR(200),
+	Estado CHAR,
 
 	CONSTRAINT PK_CodActivo 
 		PRIMARY KEY (CodActivo),
 
 	CONSTRAINT FK_ACTIVOS_CodSede
 		FOREIGN KEY (CodSede) REFERENCES SEDES(CodSede),
+
+	CONSTRAINT FK_ACTIVOS_CodEmpleado
+		FOREIGN KEY (CodEmpleado) REFERENCES EMPLEADOS(CodEmpleado),
 
 	CONSTRAINT FK_ACTIVOS_CentroCosto
 		FOREIGN KEY (CentroCosto) REFERENCES DEPARTAMENTOS(CodDepartamento)
