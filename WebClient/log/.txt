@@ -1,0 +1,7 @@
+
+Agente:   Fecha: 19/10/2018 04:19:05 pm--Error occurred:HY000:1008:OCIStmtExecute: ORA-01008: not all variables bound
+ (ext\pdo_oci\oci_statement.c:148)
+Agente:   Fecha: 19/10/2018 04:19:41 pm--Error occurred:HY000:1008:OCIStmtExecute: ORA-01008: not all variables bound
+ (ext\pdo_oci\oci_statement.c:148)
+Agente:   Fecha: 19/10/2018 04:22:25 pm--Error occurred:HY000:1008:OCIStmtExecute: ORA-01008: not all variables bound
+ (ext\pdo_oci\oci_statement.c:148)

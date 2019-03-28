@@ -1,0 +1,83 @@
+#pageFooter {
+	background-color: #101010;
+	color:white;
+	margin-top: 100px;
+}
+
+#pageFooter .footer-copyright{
+	background-color: #101010;
+	padding-top:3px;
+	padding-bottom:3px;
+	text-align: center;
+}
+
+#pageFooter .footer-copyright p{
+	margin:10px;
+	color: #ccc;
+}
+
+#pageFooter ul{
+	list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+
+}
+
+#pageFooter h5{
+	font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+#pageFooter a{
+	color:#d2d1d1;
+	text-decoration: none;
+}
+
+#pageFooter a:hover, #pageFooter a:focus{
+	text-decoration: none;
+	color:white;
+}
+
+#pageFooter .myCols{
+	text-align: center;
+}
+
+#pageFooter .social-networks{
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 38px;
+}
+
+#pageFooter .social-networks a{
+    font-size: 32px;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: #f9f9f9;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+#pageFooter .social-networks a:hover{
+	text-decoration: none;
+
+}
+
+#pageFooter .facebook:hover{
+	color:#0077e2;
+}
+
+#pageFooter .google:hover{
+	color:#ef1a1a;
+}
+
+#pageFooter .twitter:hover{
+	color: #00aced;
+}
+
+@media screen and (max-width: 767px){
+	#pageFooter {
+		text-align: center;
+	}
+}
