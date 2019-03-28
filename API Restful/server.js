@@ -1,10 +1,14 @@
 var express = require('express');
+var port = process.env.PORT || 8080;
 var app = express();
+var User = require('./api/models/userModel'); //created model loading here
 
 app.get('/', function (req, res) {
    
     var sql = require("mssql/msnodesqlv8");
 
+    var usersRoutes = require('./api/routes/userRoutes'); //importing route
+    usersRoutes(app); //register the route
 
     var config = {    
         driver: 'msnodesqlv8',
@@ -20,7 +24,9 @@ app.get('/', function (req, res) {
         var request = new sql.Request();
            
         // query to the database and get the records
-        request.query('select * from usuarios', function (err, recordset) {
+        // request.query('select * from usuarios', function (err, recordset) {
+        request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
+        // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
             
             if (err) console.log(err)
 
@@ -31,6 +37,6 @@ app.get('/', function (req, res) {
     });
 });
 
-var server = app.listen(8080, function () {
-    console.log('Server is running..');
+var server = app.listen(port, function () {
+    console.log('BDA1 API server started on: ' + port);
 });
