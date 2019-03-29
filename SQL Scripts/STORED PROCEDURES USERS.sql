@@ -1,0 +1,11 @@
+DROP PROCEDURE spSearchUser;
+
+CREATE PROCEDURE spSearchUser 
+	@UserName VARCHAR(50),
+	@UserPassword VARCHAR(50)
+AS
+	SELECT ROLL 
+	FROM USUARIOS 
+	WHERE NOMBRE=@UserName
+		AND CONTRASENA=@UserPassword;
+GO

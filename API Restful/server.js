@@ -42,8 +42,8 @@ app.post('/user/:_name', function (req, res) {
         // create Request object
         var request = new sql.Request();
         // query to the database and get the records
-        request.query('select roll from usuarios where nombre=\'' + req.params._name + '\'', function (err, recordset) {
-        // request.query('select * from usuarios where nombre=\'' + _name + '\' and contrasena=\'' + req.body.password + '\'', function (err, recordset) {
+        request.query('EXECUTE spSearchUser @UserName = \'' + req.params._name + '\', @UserPassword = \'' + req.body.password + '\'', function (err, recordset) {
+        // request.query('select * from usuarios where nombre=\'' + req.params._name + '\' and contrasena=\'' + req.body.password + '\'', function (err, recordset) {
         // request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
         // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
             if (err) console.log(err)
