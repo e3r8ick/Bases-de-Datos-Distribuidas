@@ -1,6 +1,11 @@
 'use strict';
 module.exports = function (app) {
-  var user = require('../controllers/userController');
+var user = require('../controllers/userController');
+var express = require('express');
+var bodyParser = require("body-parser");
+var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
   // todoList Routes
   app.route('/users')
