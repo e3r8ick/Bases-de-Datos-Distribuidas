@@ -16,7 +16,7 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Cetrenss S.A.</title>
+	<title>Advance Inc</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,600" rel="stylesheet">
@@ -25,7 +25,6 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 
 	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
-	<link type="text/css" rel="stylesheet" href="css/dropdown.css" />
 	<link type="text/css" rel="stylesheet" href="css/normalize.css">
 
 	<!-- Custom stlylesheet -->
@@ -40,7 +39,7 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 	<script src="js/wow.min.js"></script>
 	<script src="js/scripts.js"></script>
 
-	  <title>Cetrenss S.A.</title>
+	  <title>Advance Inc</title>
 
 </head>
 
@@ -55,14 +54,14 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php">Cetrenss S.A.</a>
+				<a class="navbar-brand" href="index.php">Advance Inc</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="top-navbar">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="index.php">Sedes</a></li>
 					<li><a href="gallery.php">Empleados</a></li>
-					<li><a href="#">Activos</a></li>
+					<li><a href="assets.php">Assets</a></li>
 					<li><a href="#">Reportes</a></li>
 					<li><a href="#">Cerrar Sesión</a></li>
 				</ul>
