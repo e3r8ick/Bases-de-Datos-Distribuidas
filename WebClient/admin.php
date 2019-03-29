@@ -11,15 +11,7 @@ include 'topmenu.php';
 
 <form method="post" action="index.html">
 <div class="box">
-<h1>Advance Inc</h1>
-
-<input type="text" name="email" placeholder="User" class="user" />
-  
-<input type="password" name="password" placeholder="Password" class="user" />
-  
-<a href="topmenu.php"><div class="btn">Sign In</div></a> <!-- End Btn -->
-
-<a href="#"><div id="btn2">Sign Up</div></a> <!-- End Btn2 -->
+<h1>Admin Mode</h1>
   
 </div> <!-- End Box -->
   

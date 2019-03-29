@@ -54,16 +54,19 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php">Advance Inc</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="top-navbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.php">Sedes</a></li>
-					<li><a href="gallery.php">Empleados</a></li>
-					<li><a href="assets.php">Assets</a></li>
-					<li><a href="#">Reportes</a></li>
-					<li><a href="#">Cerrar Sesión</a></li>
+					<li><a href="assetreg.php">Asset Registration</a></li>
+					<li><a href="asseteg.php">Asset Egress</a></li>
+					<li><a href="assetass.php">Assets Assignment</a></li>
+					<li><a href="assettran.php">Asset Transfer</a></li>
+					<li><a href="deprecalc.php">Depreciation Calc</a></li>
+					<li><a href="employees.php">Employees</a></li>
+					<li><a href="venues.php">Veunes</a></li>
+					<li><a href="reports.php">Reports</a></li>
+					<li><a href="index.php">Log Out</a></li>
 				</ul>
 			</div>
 		</div>
