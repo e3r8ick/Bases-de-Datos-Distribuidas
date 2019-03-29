@@ -96,7 +96,7 @@ INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, Pje
 	VALUES('Radio Vox', 'Sistema de radio inalámbrico', 'Comunicaciones', 18000, 1800, 10, '05/17/2018', '05/20/2018', '05/14/2020', NULL, 2, 7, 2, 'S')
 
 INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, PjeDepreciacion, FechaCompra, FechaRegistro, FechaGarantia, ValorResidual, CentroCosto, Codempleado, CodSede, Estado)
-	VALUES('Faro de Teletransportacion', 'Emisor de señal orbital', 'Especialidades', 164500, 5400, 3, '07/24/2000', '07/27/2001', '05/14/2010', NULL, 4, 1, 1, 'A')
+	VALUES('Faro de Teletransportacion', 'Emisor de señal orbital', 'Especialidades', 164500, 5400, 3, '07/24/2000', '07/27/2001', '05/14/2010', NULL, 4, 1, 1, 'E')
 INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, PjeDepreciacion, FechaCompra, FechaRegistro, FechaGarantia, ValorResidual, CentroCosto, Codempleado, CodSede, Estado)
 	VALUES('Faro de Teletransportacion', 'Emisor de señal orbital', 'Especialidades', 164500, 5400, 3, '07/14/2012', '07/27/2012', '05/14/2022', NULL, 4, 12, 3, 'A')
 
