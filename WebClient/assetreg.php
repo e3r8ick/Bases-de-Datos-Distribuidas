@@ -79,6 +79,7 @@ include 'topmenu.php';
     <input type="text" name="email" placeholder="Name" class="user" />
   </div>
 </div>
+<a href=""><div class="btn">Enter</div></a> <!-- End Btn -->
   
 </div> <!-- End Box -->
   

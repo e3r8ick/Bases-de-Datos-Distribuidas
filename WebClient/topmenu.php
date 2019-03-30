@@ -24,7 +24,7 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link type="text/css" rel="stylesheet" href="css/normalize.css">
 
 	<!-- Custom stlylesheet -->
@@ -64,7 +64,7 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 					<li><a href="assettran.php">Asset Transfer</a></li>
 					<li><a href="deprecalc.php">Depreciation Calc</a></li>
 					<li><a href="employees.php">Employees</a></li>
-					<li><a href="venues.php">Veunes</a></li>
+					<li><a href="venues.php">Venues</a></li>
 					<li><a href="reports.php">Reports</a></li>
 					<li><a href="index.php">Log Out</a></li>
 				</ul>
