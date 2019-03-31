@@ -30,9 +30,7 @@ GO
 Monto total de los activos asignados a la sede, en este reporte se muestra la cantidad de
 activos asignados, el monto total de los activos según el costo inicial, el monto total de
 los activos según el valor residual y el monto total de los activos según el valor en libros
-a la fecha de la consulta. La consulta debe mostrar los montos en colones y en dólares,
-
-Falta: precio en libros, columnas con costo en dolares
+a la fecha de la consulta. La consulta debe mostrar los montos en colones y en dólares
 */
 CREATE PROCEDURE SP_getActivosSede 
 	@TipoDeCambio FLOAT
@@ -77,22 +75,52 @@ Monto total de los activos asignados según empleado, en este reporte se muestra 
 cantidad de activos asignados, el monto total y promedio de los activos según el costo
 inicial, el monto total y promedio de los activos según el valor residual y el monto total y
 promedio de los activos según el valor en libros a la fecha de la consulta. La consulta debe
-mostrar los montos en colones y en dólares,
-
-Falta: precio en libros, definir ValorResidual, columnas con costo en dolares, filtro por sede de activo
+mostrar los montos en colones y en dólares
 */
 
 CREATE PROCEDURE SP_getActivosEmpleado 
-	@CodigoSede INT, 
+	@CodigoEmpleado INT, 
 	@TipoDeCambio FLOAT
 AS
-	SELECT E.CodEmpleado, E.Nombre, COUNT(A.CodActivo) AS CantidadAsignados, 
-			SUM(A.PrecioCompra) AS CostoInicial,					  AVG(A.PrecioCompra) AS PromedioInicial,
-			SUM(A.PrecioCompra)*@TipoDeCambio AS CostoInicialDolares, AVG(A.PrecioCompra)*@TipoDeCambio AS PromedioInicialDolares,
-			SUM(A.ValorResidual) AS CostoResidual,					  AVG(A.PrecioCompra) AS PromedioResidual
-	FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado
-	WHERE A.Estado = 'A' AND A.CodSede = @CodigoSede
-	GROUP BY E.CodEmpleado, E.Nombre
+	IF OBJECT_ID('dbo.#TempTable', 'U') IS NOT NULL 
+		DROP TABLE dbo.#TempTable; 
+	IF OBJECT_ID('dbo.#TempTable2', 'U') IS NOT NULL 
+		DROP TABLE dbo.#TempTable2; 
+
+	SELECT CodEmpleado, CodActivo, Nombre, Categoria, PrecioCompra, ValorResidual, VidaUtil/365 AS AñosVidaUtil, DATEDIFF(year, FechaCompra, GETDATE())-1 AS AñosUso, VidaUtil/365*( VidaUtil/365+1)/2 AS Factor, CodSede INTO #TempTable
+	FROM ACTIVOS
+	WHERE PjeDepreciacion IS NULL AND Estado != 'E' AND CodEmpleado = @CodigoEmpleado
+
+	SELECT * INTO #TempTable2
+	FROM (
+		SELECT CodEmpleado, CodActivo, Nombre, PrecioCompra, ValorResidual, AñosUso+1 AS AñosUso,
+	 		PrecioCompra-(PrecioCompra-ValorResidual)* (1/CONVERT(Float,Factor)*((AñosUso+1)*AñosVidaUtil-(AñosUso*AñosUso+AñosUso)/2.0)) AS ValorEnLibros, CodSede
+		FROM #TempTable
+		UNION
+		SELECT CodEmpleado, CodActivo, Nombre, PrecioCompra, ValorResidual, DATEDIFF(year, FechaCompra, GETDATE())-1 AS AñosUso,
+	 		PrecioCompra - PrecioCompra*PjeDepreciacion/100*(DATEDIFF(year, FechaCompra, GETDATE())-1) AS ValorEnLibros, CodSede
+		FROM ACTIVOS
+		WHERE PjeDepreciacion IS NOT NULL AND Estado != 'E' AND CodEmpleado = @CodigoEmpleado
+		) AS Temp2
+
+	SELECT CodEmpleado, COUNT(CodActivo) AS ActivosAsignados,
+		SUM(PrecioCompra) AS CostoInicial,
+		SUM(ValorEnLibros) AS CostoEnLibros,  
+		SUM(ValorResidual) AS CostoResidual, 
+	
+		AVG(PrecioCompra) AS PromedioInicial,
+		AVG(ValorEnLibros) AS PromedioInicialDolares,
+		AVG(ValorResidual) AS PromedioResidual,
+
+		SUM(PrecioCompra)/@TipoDeCambio AS CostoInicialDolares,
+		SUM(ValorEnLibros)/@TipoDeCambio AS CostoEnLibrosDolares,
+		SUM(ValorResidual)/@TipoDeCambio AS CostoResidualDolares,
+
+		AVG(PrecioCompra)/@TipoDeCambio AS PromedioInicial,
+		AVG(ValorEnLibros)/@TipoDeCambio AS PromedioInicialDolares,
+		AVG(ValorResidual)/@TipoDeCambio AS PromedioResidual
+	FROM #TempTable2
+	GROUP BY CodEmpleado
 GO
 
 

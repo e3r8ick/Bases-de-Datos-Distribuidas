@@ -122,8 +122,6 @@ INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, Pje
 INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, PjeDepreciacion, FechaCompra, FechaRegistro, FechaGarantia, ValorResidual, CentroCosto, Codempleado, CodSede, Estado)
 	VALUES('Asistente Robótico', 'Drone impulsado por tecnología anti-gravedad', 'Especialidades', 75000, 7300, NULL, '02/14/2018', '02/17/2018', '02/14/2022', 47500, 4, 6, 1, 'A')
 
-	DELETE FROM ACTIVOS WHERE Nombre = 'Asistente Robótico'
-
 INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, PjeDepreciacion, FechaCompra, FechaRegistro, FechaGarantia, ValorResidual, CentroCosto, Codempleado, CodSede, Estado)
 	VALUES ('Camiseta', 'Beige 5+ con la marca en la espalda', 'Utilidades', 5000, 550, 45, '05/19/2017', '05/21/2017', '05/14/2018', 4392, 5, 1, 1, 'E')
 INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, PjeDepreciacion, FechaCompra, FechaRegistro, FechaGarantia, ValorResidual, CentroCosto, Codempleado, CodSede, Estado)
@@ -180,12 +178,3 @@ INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, Pje
 	VALUES('Sector K-25P', 'Propiedad de 2200 m2', 'Propiedades', 3800000, NULL, 0, '05/17/1990', '05/20/2018', NULL, 1800000, 3, 2, 2, 'A')
 INSERT INTO ACTIVOS (Nombre, Descripcion, Categoria, PrecioCompra, VidaUtil, PjeDepreciacion, FechaCompra, FechaRegistro, FechaGarantia, ValorResidual, CentroCosto, Codempleado, CodSede, Estado)
 	VALUES('Sector W-81V', 'Propiedad de 3500 m2', 'Propiedades', 5000000, NULL, 0, '05/17/1997', '05/20/2018', NULL, 1800000, 3, 3, 3, 'A')
-
-
-	SELECT * FROM EMPLEADOS
-	SELECT * FROM SEDES
-	SELECT * FROM DEPARTAMENTOS
-	SELECT * FROM USUARIOS
-	SELECT * FROM ACTIVOS
-
-	SELECT CodActivo, Nombre, PrecioCompra, VidaUtil/365 AS AñosVidaUtil, DATEDIFF(YEAR, FechaCompra, GETDATE()) AS AñosUso FROM ACTIVOS WHERE ValorResidual IS NULL
