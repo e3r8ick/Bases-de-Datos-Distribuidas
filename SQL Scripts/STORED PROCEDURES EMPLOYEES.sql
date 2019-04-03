@@ -10,7 +10,8 @@ CREATE PROCEDURE spCreateEmployee
 	@EmployeeJob VARCHAR(50),
 	@EmployeeId INT
 AS
-	INSERT INTO EMPLEADOS (Nombre, Estado, Fotografia, CodSede, CodDepartamento, FechaIngreso, Puesto, Cedula) 
+	INSERT INTO EMPLEADOS
+		(Nombre, Estado, Fotografia, CodSede, CodDepartamento, FechaIngreso, Puesto, Cedula) 
 	VALUES 
 		(@EmployeeName, @EmployeeStatus, @EmployeePhoto, @EmployeeCodSede, @EmployeeCodDepartamento, @EmployeeDate, @EmployeeJob, @EmployeeId)
 GO
