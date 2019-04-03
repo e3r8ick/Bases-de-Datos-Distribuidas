@@ -31,7 +31,7 @@ app.get('/user', function (req, res) {
     });
 });
 
-app.get('/user/:_name', function (req, res) {
+app.post('/user/:_name', function (req, res) {
     // connect to your database
     sql.connect(config, function (err) {
         if (err) console.log(err);
