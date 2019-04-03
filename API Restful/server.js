@@ -4,9 +4,6 @@ var port = process.env.PORT || 8080;
 var app = express();
 var sql = require("mssql/msnodesqlv8");
 
-var usersRoutes = require('./api/routes/userRoutes'); //importing route
-usersRoutes(app); //register the route
-
 var config = {    
     driver: 'msnodesqlv8',
     connectionString:'Driver={SQL Server Native Client 11.0};Server={localhost\\SQLExpress};Database={AdvancedInc};Trusted_Connection={yes};'
@@ -153,6 +150,94 @@ app.delete("/employee", function(req, res) {
                 res.json('Empleado NO se elimino: ' + err);
             } else {
                 res.json('Empleado eliminado');
+            }
+            sql.close();
+        });
+    });
+});
+//*********************************************************************************************************************************************************/
+
+//*** SEDES ***********************************************************************************************************************************************/
+app.get('/venue', function (req, res) {
+    // connect to your database
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spSearchAllVenues', function (err, recordset) {
+            if (err) console.log(err)
+            // send records as a response
+            res.json(recordset.recordset);
+            sql.close();
+        });
+    });
+});
+
+app.get('/venue/:_id', function (req, res) {
+    // connect to your database
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spSearchVenue @VenueCode = \'' + req.params._id + '\'', function (err, recordset) {
+            if (err) console.log(err)
+            // send records as a response
+            res.json(recordset.recordset);
+            sql.close();
+        });
+    });
+});
+
+app.post("/venue", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spCreateVenue @VenueName = \'' + req.body.name + '\', @VenueDescription = \'' + req.body.description + '\', @VenueProvincia = \'' + req.body.provincia + '\', @VenueCanton = \'' + req.body.canton + '\', @VenueDistrito = \'' + req.body.distrito + '\', @VenueUbicationDetail = \'' + req.body.ubication + '\', @VenueStatus = \'' + req.body.status + '\', @VenueCodEmpleado = \'' + req.body.codEmpleado + '\', @VenueAdminDate = \'' + req.body.adminDate + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Sede NO insertada: ' + err);
+            } else {
+                res.json('Sede insertada');
+            }
+            sql.close();
+        });
+    });
+});
+
+app.put("/venue", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spUpdateVenue @VenueCode = \'' + req.body.codVenue + '\', @VenueName = \'' + req.body.name + '\', @VenueDescription = \'' + req.body.description + '\', @VenueProvincia = \'' + req.body.provincia + '\', @VenueCanton = \'' + req.body.canton + '\', @VenueDistrito = \'' + req.body.distrito + '\', @VenueUbicationDetail = \'' + req.body.ubication + '\', @VenueStatus = \'' + req.body.status + '\', @VenueCodEmpleado = \'' + req.body.codEmpleado + '\', @VenueAdminDate = \'' + req.body.adminDate + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Sede NO actualizada: ' + err);
+            } else {
+                res.json('Sede actualizada');
+            }
+            sql.close();
+        });
+    });
+});
+
+app.delete("/venue", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spDeleteVenue @VenueCode = \'' + req.body.codVenue + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Sede NO se elimino: ' + err);
+            } else {
+                res.json('Sede eliminada');
             }
             sql.close();
         });
