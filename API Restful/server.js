@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var port = process.env.PORT || 8080;
 var app = express();
-var User = require('./api/models/userModel'); //created model loading here
+// var User = require('./api/models/userModel'); //created model loading here
 var sql = require("mssql/msnodesqlv8");
 
 var usersRoutes = require('./api/routes/userRoutes'); //importing route
@@ -16,6 +16,7 @@ var config = {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//*** USERS ***********************************************************************************************************************************************/
 app.get('/user', function (req, res) {
     // connect to your database
     sql.connect(config, function (err) {
@@ -35,7 +36,6 @@ app.get('/user', function (req, res) {
 });
 
 app.post('/user/:_name', function (req, res) {
-    // res.json(req.params._name);
     // connect to your database
     sql.connect(config, function (err) {
         if (err) console.log(err);
@@ -55,21 +55,25 @@ app.post('/user/:_name', function (req, res) {
 });
 
 app.post("/user", function(req, res) {
-    // res.send(req.body.password);
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
         var request = new sql.Request();
-        // query to the database and get the records
-        request.query('insert into usuarios (Nombre, Contrasena, Roll) values (\''+req.body.name+'\', \''+req.body.password+'\', \''+req.body.rol+'\')', function (err, recordset) {
-            if (err) console.log(err)
-            // send records as a response
-            res.json('Usuario insertado');
+        // query to the database
+        request.query('EXECUTE spCreateUser @UserName = \'' + req.body.name + '\', @UserPassword = \'' + req.body.password + '\', @UserRol = \'' + req.body.rol + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Usuario NO insertado: ' + err);
+            } else {
+                res.json('Usuario insertado');
+            }
             sql.close();
         });
     });
 });
+//*********************************************************************************************************************************************************/
 
+//*** EMPLEADOS *******************************************************************************************************************************************/
 app.get('/employee', function (req, res) {
     // connect to your database
     sql.connect(config, function (err) {
@@ -78,8 +82,6 @@ app.get('/employee', function (req, res) {
         var request = new sql.Request();
         // query to the database and get the records
         request.query('select * from empleados', function (err, recordset) {
-        // request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
-        // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
             if (err) console.log(err)
             // send records as a response
             res.json(recordset.recordset);
@@ -88,21 +90,40 @@ app.get('/employee', function (req, res) {
     });
 });
 
-app.post("/user", function(req, res) {
-    // res.send(req.body.password);
+app.get('/employee/:_id', function (req, res) {
+    // connect to your database
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
         var request = new sql.Request();
         // query to the database and get the records
-        request.query('insert into empleados (Nombre, Estado, Fotografia, CodSede, CodDepartamento, FechaIngreso, Puesto, Cedula) values (\''+req.body.name+'\', \''+req.body.status+'\', \''+req.body.photo+'\', \''+req.body.codSede+'\', \''+req.body.codDepartamento+'\', \''+req.body.date+'\', \''+req.body.job+'\', \''+req.body.id+'\')', function (err, recordset) {
+        request.query('select * from empleados where cedula=' + req.params._id, function (err, recordset) {
             if (err) console.log(err)
             // send records as a response
-            res.json('Usuario insertado');
+            res.json(recordset.recordset);
             sql.close();
         });
     });
 });
+
+app.post("/employee", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spCreateEmployee @EmployeeName = \'' + req.params._name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Empleado NO insertado: ' + err);
+            } else {
+                res.json('Empleado insertado');
+            }
+            sql.close();
+        });
+    });
+});
+//*********************************************************************************************************************************************************/
 
 var server = app.listen(port, function () {
     console.log('BDA1 API server started on: ' + port);
