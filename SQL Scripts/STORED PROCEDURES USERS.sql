@@ -21,3 +21,15 @@ AS
 	WHERE NOMBRE=@UserName
 		AND CONTRASENA=@UserPassword;
 GO
+
+DROP PROCEDURE spDeleteUser;
+
+CREATE PROCEDURE spDeleteUser 
+	@UserName VARCHAR(50),
+	@UserPassword VARCHAR(50)
+AS
+	DELETE 
+	FROM USUARIOS 
+	WHERE NOMBRE=@UserName
+		AND CONTRASENA=@UserPassword;
+GO

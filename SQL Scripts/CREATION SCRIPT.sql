@@ -7,7 +7,7 @@ GO
 
 CREATE TABLE USUARIOS (
 	CodUsuario INT IDENTITY(1,1),
-	Nombre VARCHAR(50),
+	Nombre VARCHAR(50) UNIQUE,
 	Contrasena VARCHAR(50) DEFAULT '1234',
 	Roll CHAR,
 
@@ -18,7 +18,7 @@ CREATE TABLE USUARIOS (
 
 CREATE TABLE DEPARTAMENTOS (
 	CodDepartamento INT IDENTITY(1,1),
-	Nombre VARCHAR(50),
+	Nombre VARCHAR(50) UNIQUE,
 	Descripcion VARCHAR(50),
 	Estado CHAR,
 	
@@ -28,7 +28,7 @@ CREATE TABLE DEPARTAMENTOS (
 
 CREATE TABLE SEDES (
 	CodSede INT IDENTITY(1,1),
-	Nombre VARCHAR(50),
+	Nombre VARCHAR(50) UNIQUE,
 	Descripcion VARCHAR(50),
 	Provincia VARCHAR(50),
 	Canton VARCHAR(50),
@@ -46,7 +46,7 @@ CREATE TABLE SEDES (
 CREATE TABLE EMPLEADOS (
 	CodEmpleado INT IDENTITY (1,1),
 	Nombre VARCHAR(50),
-	Cedula INT,
+	Cedula INT UNIQUE,
 	Fotografia IMAGE,
 	CodSede INT, 
 	CodDepartamento INT,
