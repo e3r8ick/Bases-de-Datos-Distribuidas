@@ -1,4 +1,18 @@
-DROP PROCEDURE spCreateUser;
+USE AdvancedInc
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spCreateUser')
+	DROP PROCEDURE spCreateUser
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spSearchUser')
+	DROP PROCEDURE spSearchUser
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spSearchAllUsers')
+	DROP PROCEDURE spSearchAllUsers
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spDeleteUser')
+	DROP PROCEDURE spDeleteUser
+GO
 
 CREATE PROCEDURE spCreateUser 
 	@UserName VARCHAR(50),
@@ -10,8 +24,6 @@ AS
 		(@UserName, @UserPassword, @UserRol)
 GO
 
-DROP PROCEDURE spSearchUser;
-
 CREATE PROCEDURE spSearchUser 
 	@UserName VARCHAR(50),
 	@UserPassword VARCHAR(50)
@@ -22,7 +34,11 @@ AS
 		AND CONTRASENA=@UserPassword;
 GO
 
-DROP PROCEDURE spDeleteUser;
+CREATE PROCEDURE spSearchAllUsers 
+AS
+	SELECT * 
+	FROM USUARIOS;
+GO
 
 CREATE PROCEDURE spDeleteUser 
 	@UserName VARCHAR(50),

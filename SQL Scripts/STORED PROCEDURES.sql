@@ -1,9 +1,6 @@
 USE AdvancedInc
 GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_SearchUser')
-	DROP PROCEDURE SP_SearchUser
-GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_getActivos')
 	DROP PROCEDURE SP_getActivos
 GO
@@ -26,17 +23,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_Top3Emplead
 	DROP PROCEDURE SP_Top3EmpleadoConMasValor
 GO
 
-
-
-CREATE PROCEDURE SP_SearchUser 
-	@UserName VARCHAR(50),
-	@UserPassword VARCHAR(50)
-AS
-	SELECT ROLL 
-	FROM USUARIOS 
-	WHERE NOMBRE=@UserName
-		AND CONTRASENA=@UserPassword;
-GO
 
 /*
 Monto total de los activos asignados a la sede, en este reporte se muestra la cantidad de
