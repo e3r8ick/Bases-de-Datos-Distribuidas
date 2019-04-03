@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var port = process.env.PORT || 8080;
 var app = express();
-// var User = require('./api/models/userModel'); //created model loading here
 var sql = require("mssql/msnodesqlv8");
 
 var usersRoutes = require('./api/routes/userRoutes'); //importing route
@@ -112,12 +111,48 @@ app.post("/employee", function(req, res) {
         // create Request object
         var request = new sql.Request();
         // query to the database and get the records
-        request.query('EXECUTE spCreateEmployee @EmployeeName = \'' + req.params._name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'', function (err, recordset) {
+        request.query('EXECUTE spCreateEmployee @EmployeeName = \'' + req.body.name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'', function (err, recordset) {
             if (err) {
                 console.log(err)
                 res.json('Empleado NO insertado: ' + err);
             } else {
                 res.json('Empleado insertado');
+            }
+            sql.close();
+        });
+    });
+});
+
+app.put("/employee", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spUpdateEmployee @EmployeeName = \'' + req.body.name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Empleado NO actualizado: ' + err);
+            } else {
+                res.json('Empleado actualizado');
+            }
+            sql.close();
+        });
+    });
+});
+
+app.delete("/employee", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spDeleteEmployee @EmployeeId = \'' + req.body.id + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Empleado NO se elimino: ' + err);
+            } else {
+                res.json('Empleado eliminado');
             }
             sql.close();
         });
