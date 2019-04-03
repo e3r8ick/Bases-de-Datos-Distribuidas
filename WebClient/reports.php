@@ -8,28 +8,47 @@ include 'topmenu.php';
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/grid.css">
 
+<body>
+  <script>
 
-<form method="post" action="index.html">
-<div class="box">
-<h1>Reports Advance Inc</h1>
+    ///return an specific cookie
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+          }
+      }
+      return "";
+    }
+   
 
-<div class="grid-container">
-  <div class="grid-item">
-    <h4>Total amount of assets per venue</h4>
-    <a href=""><div class="btn">Consult</div></a> <!-- End Btn -->
-  </div>
-  <div class="grid-item">
-    <h4>Total amount of assets per employee</h4>
-    <a href=""><div class="btn">Consult</div></a> <!-- End Btn -->
-  </div>
-  <div class="grid-item">
-    <h4>Detail of assets per venue in a year range</h4>
-    <a href=""><div class="btn">Consult</div></a> <!-- End Btn -->
-  </div>
-</div>
-  
-</div> <!-- End Box -->
-  
-</form>
-  
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+    //check user
+    window.onload = function() {
+      var rol = getCookie("ROL");
+      if((rol.localeCompare("A")) == 0){
+        location.href ="reportsAdmin.php";
+      }
+      else{
+        location.href ="reportsManager.php";
+      }
+    }
+    
+  </script>  
+  <form method="post" action="index.html">
+  <div class="box">
+
+    
+  </div> <!-- End Box -->
+    
+  </form>
+    
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+
+</body>

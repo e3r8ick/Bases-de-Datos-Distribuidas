@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-echo '<input type="hidden" id="CIA" value="001">';
-echo '<input type="hidden" id="NumInvites" value="0">';
-
-/*echo '<input type="hidden" id="CIA" value="'.$_SESSION['CIA'].'">
-			<input type="hidden" id="COD_CLIENTE" value="'.$_SESSION['COD_CLIENTE'].'">
-			<input type="hidden" id="SUCURSAL" value="'.$_SESSION['SUCURSAL'].'">';*/
-
-?>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -129,10 +120,8 @@ echo '<input type="hidden" id="NumInvites" value="0">';
 
 	//logout
 	function logout(){
-		deleteCookie("COD_CLIENTE");
-		deleteCookie("MON_CLIENTE");
-		topMenu.removeChild(newUl);
-		topMenu.appendChild(oldMenu);
+		deleteCookie("USER");
+		deleteCookie("ROL");
 		window.location.assign("index.php")
 	}
 

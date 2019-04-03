@@ -37,39 +37,36 @@
         function login(){
             var user = $('#user').val();
             var password = $('#password').val();
-            // $.get( "http://localhost:8081/user/" + user, 
-            // { 
-            //    password: password 
-            // },
-            // function(data){
-            //    alert(JSON.stringify(data));    
-            // },"json");
+            $.post( "http://localhost:8081/user/" + user, 
+            { 
+               password: password 
+            },
+            function(data){
+                var rol = JSON.stringify(data)[10];
+                if((rol.localeCompare("A")) == 0){
+                    setCookie("USER",user,"1");  
+                    setCookie("ROL",rol,"1"); 
+                    location.href ="admin.php";
+                } 
+                else if((rol.localeCompare("U")) == 0){
+                    setCookie("USER",user,"1");  
+                    setCookie("ROL",rol,"1"); 
+                    location.href ="manager.php";
+                }
+                else{
+                    alert("Unregistered user")
+                }
+            },"json");
 
-            $.post( "http://localhost:8081/user", { password: "1234"},function(data){
-						alert(JSON.stringify(data));
-					});
-
-            // $.ajax({
-            //     type: 'GET',
-            //     url:"http://localhost:8081/user/"+user,
-            //     dataType: 'jsonp', // Notice! JSONP <-- P (lowercase),
-            //     body: {
-            //         "password": password
-            //     },
-            //     headers: {
-            //         "Access-Control-Allow-Origin":"True"
-            //     },
-            //     crossDomain: true,
-            //     success:function(json){
-            //         // do stuff with json (in this case an array)
-            //        alert(json);
-            //     },
-            //     error:function(error){
-            //         alert(JSON.stringify(error));
-            //     }      
-            // });
         }
 
+         //save a cookie
+ 	    function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+ 	    }
         
     </script>
     

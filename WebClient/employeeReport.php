@@ -9,7 +9,7 @@ include 'topmenu.php';
 <link rel="stylesheet" type="text/css" href="css/grid.css">
 
 
-<form method="post" action="index.html">
+<form method="post" action="index.php">
 <div class="box">
 <h4>Tipo de cambio en tiempo real:_____ </h4>
 

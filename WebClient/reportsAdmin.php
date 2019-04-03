@@ -11,33 +11,33 @@ include 'topmenu.php';
 
 <form method="post" action="index.html">
 <div class="box">
-<h1>Reportes para administradores</h1>
+<h1>Admin Reports</h1>
 
 <div class="column">
   <div class="grid-item">
-    <h4>Total de activos por sede de: </h4>
+    <h4>Total assstets per venues for: </h4>
     <select id="Sede">
-        <option value="hide">-- Sede --</option>
+        <option value="hide">-- Venue --</option>
         <option value="Alajuela" rel="icon-temperature">Alajuela</option>
         <option value="Cartago">Cartago</option>
         <option value="Heredia">Heredia</option>
     </select>
-<a href="reporteSede.html"><div class="btn1">Ver reporte</div></a>
+<a href="venueReport.php"><div class="btn">Get report</div></a>
   </div>
   <div class="grid-item">
-    <h4>Total de activos de:</h4>
-    <select id="Empleado">
-        <option value="hide">-- Empleado --</option>
-        <option value="Empleado" rel="icon-temperature">Brandon</option>
+    <h4>Total assets of:</h4>
+    <select id="employee">
+        <option value="hide">-- Employee --</option>
+        <option value="Employee" rel="icon-temperature">Brandon</option>
     </select>
-<a href="reporteEmpleado.html"><div class="btn2">Ver reporte</div></a>
+<a href="employeeReport.php"><div class="btn">Get report</div></a>
   </div>
   <div class="grid-item">
-    <h4>Total de activos por rango de annio</h4>
-    <input type="text" name="Fecha" placeholder="Fecha" class="user" />
+    <h4>Total assets by year range</h4>
+    <input type="text" name="date" placeholder="Date" class="user" />
   </div>
 </div>
-<a href="reporteAnnio.html"><div class="btn3">Ver reporte</div></a> <!-- End Btn -->
+<a href="yearReport.php"><div class="btn">Get report</div></a> <!-- End Btn -->
 
 
 </div> <!-- End Box -->
