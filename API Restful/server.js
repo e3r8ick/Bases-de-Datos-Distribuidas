@@ -245,6 +245,94 @@ app.delete("/venue", function(req, res) {
 });
 //*********************************************************************************************************************************************************/
 
+//*** ACTIVOS *********************************************************************************************************************************************/
+app.get('/asset', function (req, res) {
+    // connect to your database
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spSearchAllAssets', function (err, recordset) {
+            if (err) console.log(err)
+            // send records as a response
+            res.json(recordset.recordset);
+            sql.close();
+        });
+    });
+});
+
+app.get('/asset/:_id', function (req, res) {
+    // connect to your database
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spSearchAsset @AssetCode = \'' + req.params._id + '\'', function (err, recordset) {
+            if (err) console.log(err)
+            // send records as a response
+            res.json(recordset.recordset);
+            sql.close();
+        });
+    });
+});
+
+app.post("/asset", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spCreateAsset @AssetName = \'' + req.body.name + '\', @AssetDescription = \'' + req.body.description + '\', @AssetCategory = \'' + req.body.category + '\', @AssetPhoto = \'' + req.body.photo + '\', @AssetPrice = \'' + req.body.price + '\', @AssetLifeSpan = \'' + req.body.lifeSpan + '\', @AssetPjeDepreciacion = \'' + req.body.pjeDepreciacion + '\', @AssetBuyingDate = \'' + req.body.buyingDate + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetWarrantyDate = \'' + req.body.warrantyDate + '\', @AssetValorResidual = \'' + req.body.valorResidual + '\', @AssetCentroCosto = \'' + req.body.centroCosto + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\', @AssetStatus = \'' + req.body.status + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Activo NO insertado: ' + err);
+            } else {
+                res.json('Activo insertado');
+            }
+            sql.close();
+        });
+    });
+});
+
+app.put("/asset", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetName = \'' + req.body.name + '\', @AssetDescription = \'' + req.body.description + '\', @AssetCategory = \'' + req.body.category + '\', @AssetPhoto = \'' + req.body.photo + '\', @AssetPrice = \'' + req.body.price + '\', @AssetLifeSpan = \'' + req.body.lifeSpan + '\', @AssetPjeDepreciacion = \'' + req.body.pjeDepreciacion + '\', @AssetBuyingDate = \'' + req.body.buyingDate + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetWarrantyDate = \'' + req.body.warrantyDate + '\', @AssetValorResidual = \'' + req.body.valorResidual + '\', @AssetCentroCosto = \'' + req.body.centroCosto + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\', @AssetStatus = \'' + req.body.status + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Activo NO actualizado: ' + err);
+            } else {
+                res.json('Activo actualizado');
+            }
+            sql.close();
+        });
+    });
+});
+
+app.delete("/asset", function(req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spDeleteAsset @AssetCode = \'' + req.body.codAsset + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Activo NO se elimino: ' + err);
+            } else {
+                res.json('Activo eliminado');
+            }
+            sql.close();
+        });
+    });
+});
+//*********************************************************************************************************************************************************/
+
 var server = app.listen(port, function () {
     console.log('BDA1 API server started on: ' + port);
 });
