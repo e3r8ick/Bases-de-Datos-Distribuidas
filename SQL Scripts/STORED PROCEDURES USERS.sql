@@ -7,6 +7,9 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spSearchUser')
 	DROP PROCEDURE spSearchUser
 GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spSearchAllUsers')
+	DROP PROCEDURE spSearchAllUsers
+GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spDeleteUser')
 	DROP PROCEDURE spDeleteUser
 GO
@@ -29,6 +32,12 @@ AS
 	FROM USUARIOS 
 	WHERE NOMBRE=@UserName
 		AND CONTRASENA=@UserPassword;
+GO
+
+CREATE PROCEDURE spSearchAllUsers 
+AS
+	SELECT * 
+	FROM USUARIOS;
 GO
 
 CREATE PROCEDURE spDeleteUser 

@@ -23,7 +23,7 @@ app.get('/user', function (req, res) {
         // create Request object
         var request = new sql.Request();
         // query to the database and get the records
-        request.query('select * from usuarios', function (err, recordset) {
+        request.query('EXECUTE spSearchAllUsers', function (err, recordset) {
         // request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
         // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
             if (err) console.log(err)
@@ -80,7 +80,7 @@ app.get('/employee', function (req, res) {
         // create Request object
         var request = new sql.Request();
         // query to the database and get the records
-        request.query('select * from empleados', function (err, recordset) {
+        request.query('EXECUTE spSearchAllEmployees', function (err, recordset) {
             if (err) console.log(err)
             // send records as a response
             res.json(recordset.recordset);
@@ -96,7 +96,7 @@ app.get('/employee/:_id', function (req, res) {
         // create Request object
         var request = new sql.Request();
         // query to the database and get the records
-        request.query('select * from empleados where cedula=' + req.params._id, function (err, recordset) {
+        request.query('EXECUTE spSearchEmployee @EmployeeId = \'' + req.params._id + '\'', function (err, recordset) {
             if (err) console.log(err)
             // send records as a response
             res.json(recordset.recordset);

@@ -7,6 +7,9 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spSearchEmployee')
 	DROP PROCEDURE spSearchEmployee
 GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spSearchAllEmployees')
+	DROP PROCEDURE spSearchAllEmployees
+GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spDeleteEmployee')
 	DROP PROCEDURE spDeleteEmployee
 GO
@@ -36,6 +39,12 @@ AS
 	SELECT * 
 	FROM EMPLEADOS 
 	WHERE CEDULA=@EmployeeId;
+GO
+
+CREATE PROCEDURE spSearchAllEmployees 
+AS
+	SELECT * 
+	FROM EMPLEADOS;
 GO
 
 CREATE PROCEDURE spDeleteEmployee 
