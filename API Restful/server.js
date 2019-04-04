@@ -3,14 +3,172 @@ var bodyParser = require("body-parser");
 var port = process.env.PORT || 8080;
 var app = express();
 var sql = require("mssql/msnodesqlv8");
+var http = require('https');
 
-var config = {    
+var date = new Date();
+var d = date.getDay();
+var y = date.getFullYear();
+var m = date.getMonth();
+
+var compra = 0;
+var venta = 0;
+
+var config = {
     driver: 'msnodesqlv8',
-    connectionString:'Driver={SQL Server Native Client 11.0};Server={localhost\\SQLExpress};Database={AdvancedInc};Trusted_Connection={yes};'
+    connectionString: 'Driver={SQL Server Native Client 11.0};Server={localhost\\SQLExpress};Database={AdvancedInc};Trusted_Connection={yes};'
 };
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//*** TIPO CAMBIO *****************************************************************************************************************************************/
+
+var options = {
+    hostname: 'gee.bccr.fi.cr',
+    path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=317&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
+};
+
+http.get(options, function (response) {
+    var completeResponse = '';
+    response.on('data', function (chunk) {
+        completeResponse += chunk;
+    });
+    response.on('end', function () {
+        var xml2js = require('xml2js');
+        var parser = new xml2js.Parser();
+        parser.parseString(completeResponse, function (err, result) {
+            compra = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
+        });
+
+    })
+}).on('error', function (e) {
+    console.log('problem with request: ' + e.message);
+});
+
+
+var options = {
+    hostname: 'gee.bccr.fi.cr',
+    path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=318&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
+};
+
+http.get(options, function (response) {
+    var completeResponse = '';
+    response.on('data', function (chunk) {
+        completeResponse += chunk;
+    });
+    response.on('end', function () {
+        var xml2js = require('xml2js');
+        var parser = new xml2js.Parser();
+        parser.parseString(completeResponse, function (err, result) {
+            venta = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
+        });
+
+    })
+}).on('error', function (e) {
+    console.log('problem with request: ' + e.message);
+});
+
+app.get('/tipo', function (req, res) {
+    var options = {
+        hostname: 'gee.bccr.fi.cr',
+        path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=317&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
+    };
+
+    http.get(options, function (response) {
+        var completeResponse = '';
+        response.on('data', function (chunk) {
+            completeResponse += chunk;
+        });
+        response.on('end', function () {
+            var xml2js = require('xml2js');
+            var parser = new xml2js.Parser();
+            parser.parseString(completeResponse, function (err, result) {
+                compra = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
+            });
+
+        })
+    }).on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+
+    var options = {
+        hostname: 'gee.bccr.fi.cr',
+        path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=318&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
+    };
+
+    http.get(options, function (response) {
+        var completeResponse = '';
+        response.on('data', function (chunk) {
+            completeResponse += chunk;
+        });
+        response.on('end', function () {
+            var xml2js = require('xml2js');
+            var parser = new xml2js.Parser();
+            parser.parseString(completeResponse, function (err, result) {
+                venta = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
+            });
+
+        })
+    }).on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+    res.send('Compra: ' + compra + '\nVenta: ' + venta);
+});
+
+app.get('/tipo/compra', function (req, res) {
+    var options = {
+        hostname: 'gee.bccr.fi.cr',
+        path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=317&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
+    };
+
+    http.get(options, function (response) {
+        var completeResponse = '';
+        response.on('data', function (chunk) {
+            completeResponse += chunk;
+        });
+        response.on('end', function () {
+            var xml2js = require('xml2js');
+            var parser = new xml2js.Parser();
+            parser.parseString(completeResponse, function (err, result) {
+                compra = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
+                res.send('Compra: ' + compra);
+            });
+
+        })
+    }).on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+});
+
+app.get('/tipo/venta', function (req, res) {
+    var options = {
+        hostname: 'gee.bccr.fi.cr',
+        path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=318&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
+    };
+
+    http.get(options, function (response) {
+        var completeResponse = '';
+        response.on('data', function (chunk) {
+            completeResponse += chunk;
+        });
+        response.on('end', function () {
+            var xml2js = require('xml2js');
+            var parser = new xml2js.Parser();
+            parser.parseString(completeResponse, function (err, result) {
+                venta = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
+                res.send('Venta: ' + venta);
+            });
+
+        })
+    }).on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+});
+//*********************************************************************************************************************************************************/
 
 //*** USERS ***********************************************************************************************************************************************/
 app.get('/user', function (req, res) {
@@ -21,8 +179,8 @@ app.get('/user', function (req, res) {
         var request = new sql.Request();
         // query to the database and get the records
         request.query('EXECUTE spSearchAllUsers', function (err, recordset) {
-        // request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
-        // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
+            // request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
+            // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
             if (err) console.log(err)
             // send records as a response
             res.json(recordset.recordset);
@@ -39,9 +197,9 @@ app.post('/user/:_name', function (req, res) {
         var request = new sql.Request();
         // query to the database and get the records
         request.query('EXECUTE spSearchUser @UserName = \'' + req.params._name + '\', @UserPassword = \'' + req.body.password + '\'', function (err, recordset) {
-        // request.query('select * from usuarios where nombre=\'' + req.params._name + '\' and contrasena=\'' + req.body.password + '\'', function (err, recordset) {
-        // request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
-        // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
+            // request.query('select * from usuarios where nombre=\'' + req.params._name + '\' and contrasena=\'' + req.body.password + '\'', function (err, recordset) {
+            // request.query('SELECT * FROM [FROSTRITE-LAPTO].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
+            // request.query('SELECT * FROM [DESKTOP-34N0LII].[AdvancedInc].[dbo].[USUARIOS]', function (err, recordset) {
             if (err) console.log(err)
             // send records as a response
             res.send(recordset.recordset);
@@ -50,7 +208,7 @@ app.post('/user/:_name', function (req, res) {
     });
 });
 
-app.post("/user", function(req, res) {
+app.post("/user", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -102,7 +260,7 @@ app.get('/employee/:_id', function (req, res) {
     });
 });
 
-app.post("/employee", function(req, res) {
+app.post("/employee", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -120,7 +278,7 @@ app.post("/employee", function(req, res) {
     });
 });
 
-app.put("/employee", function(req, res) {
+app.put("/employee", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -138,7 +296,7 @@ app.put("/employee", function(req, res) {
     });
 });
 
-app.delete("/employee", function(req, res) {
+app.delete("/employee", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -190,7 +348,7 @@ app.get('/venue/:_id', function (req, res) {
     });
 });
 
-app.post("/venue", function(req, res) {
+app.post("/venue", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -208,7 +366,7 @@ app.post("/venue", function(req, res) {
     });
 });
 
-app.put("/venue", function(req, res) {
+app.put("/venue", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -226,7 +384,7 @@ app.put("/venue", function(req, res) {
     });
 });
 
-app.delete("/venue", function(req, res) {
+app.delete("/venue", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -278,7 +436,7 @@ app.get('/asset/:_id', function (req, res) {
     });
 });
 
-app.post("/asset", function(req, res) {
+app.post("/asset", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -296,7 +454,7 @@ app.post("/asset", function(req, res) {
     });
 });
 
-app.put("/asset", function(req, res) {
+app.put("/asset", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -314,7 +472,7 @@ app.put("/asset", function(req, res) {
     });
 });
 
-app.delete("/asset", function(req, res) {
+app.delete("/asset", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
