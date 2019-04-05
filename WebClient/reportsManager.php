@@ -30,13 +30,13 @@ include 'topmenu.php';
 <a href="reporteEmpleado.php"><div class="btn">Ver reporte</div></a>
   </div>
   <div class="grid-item">
-    <h4>Lista de 3 empleados con mayor cantidad de activos</h4>
+    <h4>List of 3 employees with the highest amount of assets</h4>
     <h4>_____________________________</h4>
     <h4>_____________________________</h4>
     <h4>_____________________________</h4>
   </div>
   <div class="grid-item">
-    <h4>Lista de 3 empleados cuya suma del valor en libros de los activos es mayor</h4>
+    <h4>List of 3 employees whose sum of book value of assets is greater</h4>
     <h4>_____________________________</h4>
     <h4>_____________________________</h4>
     <h4>_____________________________</h4>
