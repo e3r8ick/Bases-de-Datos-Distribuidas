@@ -16,6 +16,9 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spUpdateAsset')
 	DROP PROCEDURE spUpdateAsset
 GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spAssignAsset')
+	DROP PROCEDURE spAssignAsset
+GO
 
 CREATE PROCEDURE spCreateAsset
 	@AssetName VARCHAR(50),
@@ -85,6 +88,20 @@ AS
 	UPDATE ACTIVOS
 	SET 
 		Nombre = @AssetName, Descripcion = @AssetDescription, Categoria = @AssetCategory, Foto = @AssetPhoto, PrecioCompra = @AssetPrice, VidaUtil = @AssetLifeSpan, PjeDepreciacion = @AssetPjeDepreciacion, FechaCompra = @AssetBuyingDate, FechaRegistro = @AssetRegistrationDate, FechaGarantia = @AssetWarrantyDate, ValorResidual = @AssetValorResidual, CentroCosto = @AssetCentroCosto, CodEmpleado = @AssetCodEmployee, CodSede = @AssetCodVenue, DetalleUbicacion = @AssetUbicationDetail, Estado = @AssetStatus
+	WHERE
+		CodActivo = @AssetCode
+GO
+
+CREATE PROCEDURE spAssignAsset
+	@AssetCode INT,
+	@AssetRegistrationDate DATE,
+	@AssetCodEmployee INT,
+	@AssetCodVenue INT,
+	@AssetUbicationDetail VARCHAR(200)
+AS
+	UPDATE ACTIVOS
+	SET 
+		FechaRegistro = @AssetRegistrationDate, CodEmpleado = @AssetCodEmployee, CodSede = @AssetCodVenue, DetalleUbicacion = @AssetUbicationDetail
 	WHERE
 		CodActivo = @AssetCode
 GO

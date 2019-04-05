@@ -489,6 +489,26 @@ app.delete("/asset", function (req, res) {
         });
     });
 });
+
+app.put("/asset/assign", function (req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spAssignAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Activo NO asignado: ' + err);
+            } else {
+                res.json('Activo asignado');
+            }
+            sql.close();
+        });
+    });
+});
+
+
 //*********************************************************************************************************************************************************/
 
 var server = app.listen(port, function () {
