@@ -11,16 +11,16 @@ include 'topmenu.php';
 
 <form method="post" action="index.html">
 <div class="box">
-<h4>Tipo de cambio en tiempo real:_____ </h4>
+<h4>Real-time exchange rate:_____ </h4>
 
 
-<h1>Reportes de activos asignados por sede</h1>
+<h1>Asset reports assigned by headquarters</h1>
 <div class="column">
   <div class="grid-item">
-    <h3>Cantidad de activos: _____</h3>
-    <h3>Monto total de activos segun costo inicial: _____ </h3>
-    <h3>Monto total de activos segun valor residual: _____</h3>
-    <h3>Monto total de activos segun valor en libros: _____</h3>
+    <h3>Amount of assets: _____</h3>
+    <h3>Total amount of assets according to initial cost: _____ </h3>
+    <h3>Total amount of assets according to residual value: _____</h3>
+    <h3>Total amount of assets according to book value: _____</h3>
   </div>
 </div>
 

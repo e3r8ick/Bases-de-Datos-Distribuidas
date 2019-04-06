@@ -17,7 +17,7 @@
 
     <form method="post" action="index.html">
     <div class="box">
-    <h1>Control de Activos Advance Inc</h1>
+    <h1>Asset control Advance Inc</h1>
 
     <input type="text" id="user" name="email" placeholder="User" class="user" />
     
