@@ -61,52 +61,8 @@ var executeQuery = function (res1, query) {
 
 //*** TIPO CAMBIO *****************************************************************************************************************************************/
 
-var options = {
-    hostname: 'gee.bccr.fi.cr',
-    path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=317&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
-};
-
-http.get(options, function (response) {
-    var completeResponse = '';
-    response.on('data', function (chunk) {
-        completeResponse += chunk;
-    });
-    response.on('end', function () {
-        var xml2js = require('xml2js');
-        var parser = new xml2js.Parser();
-        parser.parseString(completeResponse, function (err, result) {
-            compra = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
-        });
-
-    })
-}).on('error', function (e) {
-    console.log('problem with request: ' + e.message);
-});
-
-
-var options = {
-    hostname: 'gee.bccr.fi.cr',
-    path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=318&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
-};
-
-http.get(options, function (response) {
-    var completeResponse = '';
-    response.on('data', function (chunk) {
-        completeResponse += chunk;
-    });
-    response.on('end', function () {
-        var xml2js = require('xml2js');
-        var parser = new xml2js.Parser();
-        parser.parseString(completeResponse, function (err, result) {
-            venta = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
-        });
-
-    })
-}).on('error', function (e) {
-    console.log('problem with request: ' + e.message);
-});
-
-app.get('/tipo', function (req, res) {
+//Function to connect to the BCCR and get the currency exchange rate
+var getCompra = function () {
     var options = {
         hostname: 'gee.bccr.fi.cr',
         path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=317&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
@@ -128,8 +84,10 @@ app.get('/tipo', function (req, res) {
     }).on('error', function (e) {
         console.log('problem with request: ' + e.message);
     });
+}
 
-
+//Function to connect to the BCCR and get the currency exchange rate
+var getVenta = function () {
     var options = {
         hostname: 'gee.bccr.fi.cr',
         path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=318&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
@@ -151,60 +109,27 @@ app.get('/tipo', function (req, res) {
     }).on('error', function (e) {
         console.log('problem with request: ' + e.message);
     });
+}
 
+getVenta();
+getCompra();
+
+app.get('/tipo', function (req, res) {
+    getVenta();
+    getCompra();
     res.send('Compra: ' + compra + '\nVenta: ' + venta);
 });
 
 app.get('/tipo/compra', function (req, res) {
-    var options = {
-        hostname: 'gee.bccr.fi.cr',
-        path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=317&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
-    };
+    getCompra();
+    res.send('Compra: ' + compra);
 
-    http.get(options, function (response) {
-        var completeResponse = '';
-        response.on('data', function (chunk) {
-            completeResponse += chunk;
-        });
-        response.on('end', function () {
-            var xml2js = require('xml2js');
-            var parser = new xml2js.Parser();
-            parser.parseString(completeResponse, function (err, result) {
-                compra = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
-                res.send('Compra: ' + compra);
-            });
-
-        })
-    }).on('error', function (e) {
-        console.log('problem with request: ' + e.message);
-    });
 
 });
 
 app.get('/tipo/venta', function (req, res) {
-    var options = {
-        hostname: 'gee.bccr.fi.cr',
-        path: '/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicos?tcIndicador=318&tcFechaInicio=' + d + '/' + (m + 1) + '/' + y + '&tcFechaFinal=' + d + '/' + (m + 1) + '/' + y + '&tcNombre=B&tnSubNiveles=n'
-    };
-
-    http.get(options, function (response) {
-        var completeResponse = '';
-        response.on('data', function (chunk) {
-            completeResponse += chunk;
-        });
-        response.on('end', function () {
-            var xml2js = require('xml2js');
-            var parser = new xml2js.Parser();
-            parser.parseString(completeResponse, function (err, result) {
-                venta = result['DataSet']['diffgr:diffgram'][0]['Datos_de_INGC011_CAT_INDICADORECONOMIC'][0]['INGC011_CAT_INDICADORECONOMIC'][0]['NUM_VALOR'];
-                res.send('Venta: ' + venta);
-            });
-
-        })
-    }).on('error', function (e) {
-        console.log('problem with request: ' + e.message);
-    });
-
+    getVenta();
+    res.send('Venta: ' + venta);
 });
 //*********************************************************************************************************************************************************/
 
