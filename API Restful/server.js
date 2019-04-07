@@ -6,7 +6,7 @@ var sql = require("mssql/msnodesqlv8");
 var http = require('https');
 
 var date = new Date();
-var d = date.getDay();
+var d = date.getDate();
 var y = date.getFullYear();
 var m = date.getMonth();
 
@@ -448,6 +448,24 @@ app.post("/asset", function (req, res) {
                 res.json('Activo NO insertado: ' + err);
             } else {
                 res.json('Activo insertado');
+            }
+            sql.close();
+        });
+    });
+});
+
+app.post("/asset", function (req, res) {
+    sql.connect(config, function (err) {
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        // query to the database and get the records
+        request.query('EXECUTE spUpdateAssetStatus @AssetCode = \'' + req.body.codAsset +  '\', @AssetStatus = \'' + req.body.status + '\'', function (err, recordset) {
+            if (err) {
+                console.log(err)
+                res.json('Activo NO actualizado: ' + err);
+            } else {
+                res.json('Activo actualizado');
             }
             sql.close();
         });

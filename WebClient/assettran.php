@@ -14,35 +14,44 @@ include 'topmenu.php';
 <h1>Asset Transfer Advance Inc</h1>
 
 <div class="column">
-<h4>Select Asset</h4>
-    <select id="mounth">
-        <option value="hide">-- Month --</option>
-        <option value="january" rel="icon-temperature">January</option>
-        <option value="february">February</option>
-        <option value="march">March</option>
-        <option value="april">April</option>
-        <option value="may">May</option>
-        <option value="june">June</option>
-        <option value="july">July</option>
-        <option value="august">August</option>
-        <option value="september">September</option>
-        <option value="october">October</option>
-        <option value="november">November</option>
-        <option value="december">December</option>
-    </select> 
+  <div class="grid-item">
+      <h4>Asset Code</h4>
+      <input type="text" id="code" name="email" placeholder="Code" class="user" />
+  </div>
   <div class="grid-item">
     <h4>Venue</h4>
-    <input type="text" name="email" placeholder="Venue" class="user" />
+    <input type="text" id="venue" name="email" placeholder="Venue" class="user" />
   </div>
   <div class="grid-item">
     <h4>Employee ID</h4>
-    <input type="text" name="email" placeholder="Employee ID" class="user" />
+    <input type="text" id="employee" cname="email" placeholder="Employee ID" class="user" />
   </div>
 </div>
-<a href=""><div class="btn">Enter</div></a> <!-- End Btn -->
+<div id="assetReg" onclick="assertTransfer()" type="submit" class="btn">Enter</div> <!-- End Btn -->
   
 </div> <!-- End Box -->
   
 </form>
+
+<script>
+
+    //login
+    function assertTransfer(){
+        var code = $('#code').val();
+        var venue = $('#venue').val();
+        var employee = $('#employee').val();
+        $.post( "http://localhost:8081/asset", 
+        { 
+            codAsset: code,
+            status: status
+        },
+        function(data){
+        alert(JSON.stringify(data));
+            
+        },"json");
+
+    }
+
+</script>
   
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
