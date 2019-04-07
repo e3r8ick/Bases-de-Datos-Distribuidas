@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require("body-parser");
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8081;
 var app = express();
 var sql = require("mssql/msnodesqlv8");
 var http = require('https');
@@ -454,7 +454,7 @@ app.post("/asset", function (req, res) {
     });
 });
 
-app.put("/asset", function (req, res) {
+app.post("/asset", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object
@@ -490,7 +490,7 @@ app.delete("/asset", function (req, res) {
     });
 });
 
-app.put("/asset/assign", function (req, res) {
+app.post("/asset/assign", function (req, res) {
     sql.connect(config, function (err) {
         if (err) console.log(err);
         // create Request object

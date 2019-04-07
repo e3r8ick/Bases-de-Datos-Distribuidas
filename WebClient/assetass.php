@@ -16,29 +16,54 @@ include 'topmenu.php';
 <div class="column">
   <div class="grid-item">
     <h4>Code</h4>
-    <input type="text" name="email" placeholder="Code" class="user" />
+    <input type="text" id="code" name="email" placeholder="Code" class="user" />
   </div>
   <div class="grid-item">
     <h4>Employee ID</h4>
-    <input type="text" name="email" placeholder="Employee ID" class="user" />
+    <input type="text" id="employee" name="email" placeholder="Employee ID" class="user" />
   </div>
   <div class="grid-item">
     <h4>Date</h4>
-    <input type="text" name="email" placeholder="Date" class="user" />
+    <input type="text" id="date" name="email" placeholder="Date" class="user" />
   </div>
   <div class="grid-item">
     <h4>Detail</h4>
-    <input type="text" name="email" placeholder="Detail" class="user" />
+    <input type="text" id="detail" name="email" placeholder="Detail" class="user" />
   </div>
   <div class="grid-item">
     <h4>Venue</h4>
-    <input type="text" name="email" placeholder="Venue" class="user" />
+    <input type="text" id="venue" name="email" placeholder="Venue" class="user" />
   </div>
 </div>
-<a href=""><div class="btn">Enter</div></a> <!-- End Btn -->
+<div id="assertAssignation" onclick="assertAssignation()" type="submit" class="btn">Enter</div> <!-- End Btn -->
   
 </div> <!-- End Box -->
   
 </form>
   
+<script>
+
+  //login
+  function assertAssignation(){
+      var code = $('#code').val();
+      var regDate = $('#regDate').val();
+      var venue = $('#venue').val();
+      var detail = $('#detail').val();
+      var employee = $('#employee').val();
+      $.post( "http://localhost:8081/asset/assign", 
+      { 
+        registrationDate: regDate,
+        codEmployee: employee,
+        codVenue: venue,
+        ubicationDetail: detail,
+        codAsset: code
+      },
+      function(data){
+        alert(JSON.stringify(data));
+          
+      },"json");
+
+  }
+
+</script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
