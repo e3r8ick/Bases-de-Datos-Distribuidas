@@ -6,7 +6,7 @@ var sql = require("mssql");
 var http = require('https');
 
 var date = new Date();
-var d = date.getDay();
+var d = date.getDate();
 var y = date.getFullYear();
 var m = date.getMonth();
 
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
     //Enabling CORS 
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,post");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, contentType,Content-Type, Accept, Authorization");
     next();
 });
@@ -241,13 +241,13 @@ app.post("/employee", function (req, res) {
     executeQuery(res, query);
 });
 
-app.put("/employee", function (req, res) {
+app.post("/employee", function (req, res) {
     var query = 'EXECUTE spUpdateEmployee @EmployeeName = \'' + req.body.name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'';
     executeQuery(res, query);
 });
 
-app.delete("/employee", function (req, res) {
-    var query = 'EXECUTE spDeleteEmployee @EmployeeId = \'' + req.body.id + '\'';
+app.post("/employee", function (req, res) {
+    var query = 'EXECUTE sppostEmployee @EmployeeId = \'' + req.body.id + '\'';
     executeQuery(res, query);
 });
 //*********************************************************************************************************************************************************/
@@ -268,13 +268,13 @@ app.post("/venue", function (req, res) {
     executeQuery(res, query);
 });
 
-app.put("/venue", function (req, res) {
+app.post("/venue", function (req, res) {
     var query = 'EXECUTE spUpdateVenue @VenueCode = \'' + req.body.codVenue + '\', @VenueName = \'' + req.body.name + '\', @VenueDescription = \'' + req.body.description + '\', @VenueProvincia = \'' + req.body.provincia + '\', @VenueCanton = \'' + req.body.canton + '\', @VenueDistrito = \'' + req.body.distrito + '\', @VenueUbicationDetail = \'' + req.body.ubication + '\', @VenueStatus = \'' + req.body.status + '\', @VenueCodEmpleado = \'' + req.body.codEmpleado + '\', @VenueAdminDate = \'' + req.body.adminDate + '\'';
     executeQuery(res, query);
 });
 
-app.delete("/venue", function (req, res) {
-    var query = 'EXECUTE spDeleteVenue @VenueCode = \'' + req.body.codVenue + '\'';
+app.post("/venue", function (req, res) {
+    var query = 'EXECUTE sppostVenue @VenueCode = \'' + req.body.codVenue + '\'';
     executeQuery(res, query);
 });
 //*********************************************************************************************************************************************************/
@@ -295,17 +295,17 @@ app.post("/asset", function (req, res) {
     executeQuery(res, query);
 });
 
-app.put("/asset", function (req, res) {
+app.post("/asset", function (req, res) {
     var query = 'EXECUTE spUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetName = \'' + req.body.name + '\', @AssetDescription = \'' + req.body.description + '\', @AssetCategory = \'' + req.body.category + '\', @AssetPhoto = \'' + req.body.photo + '\', @AssetPrice = \'' + req.body.price + '\', @AssetLifeSpan = \'' + req.body.lifeSpan + '\', @AssetPjeDepreciacion = \'' + req.body.pjeDepreciacion + '\', @AssetBuyingDate = \'' + req.body.buyingDate + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetWarrantyDate = \'' + req.body.warrantyDate + '\', @AssetValorResidual = \'' + req.body.valorResidual + '\', @AssetCentroCosto = \'' + req.body.centroCosto + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\', @AssetStatus = \'' + req.body.status + '\'';
     executeQuery(res, query);
 });
 
-app.delete("/asset", function (req, res) {
-    var query = 'EXECUTE spDeleteAsset @AssetCode = \'' + req.body.codAsset + '\'';
+app.post("/asset", function (req, res) {
+    var query = 'EXECUTE sppostAsset @AssetCode = \'' + req.body.codAsset + '\'';
     executeQuery(res, query);
 });
 
-app.put("/asset/assign", function (req, res) {
+app.post("/asset/assign", function (req, res) {
     var query = 'EXECUTE spAssignAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\'';
     executeQuery(res, query);
 });
