@@ -9,16 +9,13 @@ include 'topmenu.php';
 <link rel="stylesheet" type="text/css" href="css/grid.css">
 
 
-<form method="post" action="reportsManager.php">
+<form method="post" action="index.html">
 <div class="box">
-<h4>Real-time exchange rate:_____ </h4>
-
-
-<h1>Asset reports assigned by headquarters</h1>
+<h1>Reports of assigned assets by range of years</h1>
 <div class="column">
   <div class="grid-item">
-    <h3>Amount of assets: _____</h3>
-
+      <input type="text" id="user" name="purchaseDate" placeholder="Date of purchase" class="user" />
+      <input type="text" id="user" name="UtilityYears" placeholder="Years of useful life" class="user" />
   </div>
 </div>
 
