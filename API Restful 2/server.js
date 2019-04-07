@@ -295,6 +295,12 @@ app.post("/asset/status", function (req, res) {
     var query = 'EXECUTE spStatusUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetStatus = \'' + req.body.status + '\'';
     executeQuery(res, query);
 });
+
+//Function to update venue information from a asset, require employee id
+app.post("/asset/venue", function (req, res) {
+    var query = 'EXECUTE spVenueUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\'';
+    executeQuery(res, query);
+});
 //*********************************************************************************************************************************************************/
 
 //Setting up server
