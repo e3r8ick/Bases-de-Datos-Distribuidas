@@ -60,7 +60,6 @@ var executeQuery = function (res1, query) {
 }
 
 //*** TIPO CAMBIO *****************************************************************************************************************************************/
-
 //Function to connect to the BCCR and get the currency exchange rate
 var getCompra = function () {
     var options = {
@@ -114,12 +113,14 @@ var getVenta = function () {
 getVenta();
 getCompra();
 
+//Function to get the currency exchange rate 
 app.get('/tipo', function (req, res) {
     getVenta();
     getCompra();
     res.send('Compra: ' + compra + '\nVenta: ' + venta);
 });
 
+//Function to obtain currency sale exhange rate
 app.get('/tipo/compra', function (req, res) {
     getCompra();
     res.send('Compra: ' + compra);
@@ -127,6 +128,7 @@ app.get('/tipo/compra', function (req, res) {
 
 });
 
+//Function to obtain currency purchase exhange rate
 app.get('/tipo/venta', function (req, res) {
     getVenta();
     res.send('Venta: ' + venta);
@@ -134,104 +136,135 @@ app.get('/tipo/venta', function (req, res) {
 //*********************************************************************************************************************************************************/
 
 //*** USERS ***********************************************************************************************************************************************/
+//Function to get the information from all users
 app.get('/user', function (req, res) {
     var query = 'EXECUTE spSearchAllUsers';
     executeQuery(res, query);
 });
 
+//Function to get the rol about from a specific user using the password (login)
 app.post('/user/:_name', function (req, res) {
     var query = 'EXECUTE spSearchUser @UserName = \'' + req.params._name + '\', @UserPassword = \'' + req.body.password + '\'';
     executeQuery(res, query);
 });
 
+//Function to create a new user
 app.post("/user", function (req, res) {
     var query = 'EXECUTE spCreateUser @UserName = \'' + req.body.name + '\', @UserPassword = \'' + req.body.password + '\', @UserRol = \'' + req.body.rol + '\'';
+    executeQuery(res, query);
+});
+
+//Function to delete a specific user using the password
+app.post("/user/delete/:_name", function (req, res) {
+    var query = 'EXECUTE spDeleteUser @UserName = \'' + req.params._name + '\', @UserPassword = \'' + req.body.password + '\'';
     executeQuery(res, query);
 });
 //*********************************************************************************************************************************************************/
 
 //*** EMPLEADOS *******************************************************************************************************************************************/
+//Function to get the information from all employees
 app.get('/employee', function (req, res) {
     var query = 'EXECUTE spSearchAllEmployees';
     executeQuery(res, query);
 });
 
+//Function to get the information from a specific employee using the personal identification number
 app.get('/employee/:_id', function (req, res) {
     var query = 'EXECUTE spSearchEmployee @EmployeeId = \'' + req.params._id + '\'';
     executeQuery(res, query);
 });
 
+//Function to create a new employee
 app.post("/employee", function (req, res) {
     var query = 'EXECUTE spCreateEmployee @EmployeeName = \'' + req.body.name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'';
     executeQuery(res, query);
 });
 
+//Function to update a employee
 app.post("/employee", function (req, res) {
     var query = 'EXECUTE spUpdateEmployee @EmployeeName = \'' + req.body.name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'';
     executeQuery(res, query);
 });
 
+//Function to delete a employee using the id
 app.post("/employee", function (req, res) {
-    var query = 'EXECUTE sppostEmployee @EmployeeId = \'' + req.body.id + '\'';
+    var query = 'EXECUTE spDeleteEmployee @EmployeeId = \'' + req.body.id + '\'';
     executeQuery(res, query);
 });
 //*********************************************************************************************************************************************************/
 
 //*** SEDES ***********************************************************************************************************************************************/
+//Function to get the information from all venues
 app.get('/venue', function (req, res) {
     var query = 'EXECUTE spSearchAllVenues';
     executeQuery(res, query);
 });
 
+//Function to get the information from a specific venue using the venue id
 app.get('/venue/:_id', function (req, res) {
     var query = 'EXECUTE spSearchVenue @VenueCode = \'' + req.params._id + '\'';
     executeQuery(res, query);
 });
 
+//Function to create a new venue
 app.post("/venue", function (req, res) {
     var query = 'EXECUTE spCreateVenue @VenueName = \'' + req.body.name + '\', @VenueDescription = \'' + req.body.description + '\', @VenueProvincia = \'' + req.body.provincia + '\', @VenueCanton = \'' + req.body.canton + '\', @VenueDistrito = \'' + req.body.distrito + '\', @VenueUbicationDetail = \'' + req.body.ubication + '\', @VenueStatus = \'' + req.body.status + '\', @VenueCodEmpleado = \'' + req.body.codEmpleado + '\', @VenueAdminDate = \'' + req.body.adminDate + '\'';
     executeQuery(res, query);
 });
 
+//Function to update a venue
 app.post("/venue", function (req, res) {
     var query = 'EXECUTE spUpdateVenue @VenueCode = \'' + req.body.codVenue + '\', @VenueName = \'' + req.body.name + '\', @VenueDescription = \'' + req.body.description + '\', @VenueProvincia = \'' + req.body.provincia + '\', @VenueCanton = \'' + req.body.canton + '\', @VenueDistrito = \'' + req.body.distrito + '\', @VenueUbicationDetail = \'' + req.body.ubication + '\', @VenueStatus = \'' + req.body.status + '\', @VenueCodEmpleado = \'' + req.body.codEmpleado + '\', @VenueAdminDate = \'' + req.body.adminDate + '\'';
     executeQuery(res, query);
 });
 
+//Function to delete a venue using the venue id
 app.post("/venue", function (req, res) {
-    var query = 'EXECUTE sppostVenue @VenueCode = \'' + req.body.codVenue + '\'';
+    var query = 'EXECUTE spDeleteVenue @VenueCode = \'' + req.body.codVenue + '\'';
     executeQuery(res, query);
 });
 //*********************************************************************************************************************************************************/
 
 //*** ACTIVOS *********************************************************************************************************************************************/
+//Function to get the information from all assets
 app.get('/asset', function (req, res) {
     var query = 'EXECUTE spSearchAllAssets';
     executeQuery(res, query);
 });
 
+//Function to get the information from a specific asset using the asset id
 app.get('/asset/:_id', function (req, res) {
     var query = 'EXECUTE spSearchAsset @AssetCode = \'' + req.params._id + '\'';
     executeQuery(res, query);
 });
 
+//Function to create a new asset
 app.post("/asset", function (req, res) {
     var query = 'EXECUTE spCreateAsset @AssetName = \'' + req.body.name + '\', @AssetDescription = \'' + req.body.description + '\', @AssetCategory = \'' + req.body.category + '\', @AssetPhoto = \'' + req.body.photo + '\', @AssetPrice = \'' + req.body.price + '\', @AssetLifeSpan = \'' + req.body.lifeSpan + '\', @AssetPjeDepreciacion = \'' + req.body.pjeDepreciacion + '\', @AssetBuyingDate = \'' + req.body.buyingDate + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetWarrantyDate = \'' + req.body.warrantyDate + '\', @AssetValorResidual = \'' + req.body.valorResidual + '\', @AssetCentroCosto = \'' + req.body.centroCosto + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\', @AssetStatus = \'' + req.body.status + '\'';
     executeQuery(res, query);
 });
 
+//Function to update a asset information
 app.post("/asset", function (req, res) {
     var query = 'EXECUTE spUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetName = \'' + req.body.name + '\', @AssetDescription = \'' + req.body.description + '\', @AssetCategory = \'' + req.body.category + '\', @AssetPhoto = \'' + req.body.photo + '\', @AssetPrice = \'' + req.body.price + '\', @AssetLifeSpan = \'' + req.body.lifeSpan + '\', @AssetPjeDepreciacion = \'' + req.body.pjeDepreciacion + '\', @AssetBuyingDate = \'' + req.body.buyingDate + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetWarrantyDate = \'' + req.body.warrantyDate + '\', @AssetValorResidual = \'' + req.body.valorResidual + '\', @AssetCentroCosto = \'' + req.body.centroCosto + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\', @AssetStatus = \'' + req.body.status + '\'';
     executeQuery(res, query);
 });
 
+//Function to delete a asset
 app.post("/asset", function (req, res) {
-    var query = 'EXECUTE sppostAsset @AssetCode = \'' + req.body.codAsset + '\'';
+    var query = 'EXECUTE spDeleteAsset @AssetCode = \'' + req.body.codAsset + '\'';
     executeQuery(res, query);
 });
 
+//Function to assign an asset to a employee
 app.post("/asset/assign", function (req, res) {
     var query = 'EXECUTE spAssignAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\'';
+    executeQuery(res, query);
+});
+
+//Function to update status information from a asset
+app.post("/asset/status", function (req, res) {
+    var query = 'EXECUTE spStatusUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetStatus = \'' + req.body.status + '\'';
     executeQuery(res, query);
 });
 //*********************************************************************************************************************************************************/
