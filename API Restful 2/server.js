@@ -117,21 +117,49 @@ getCompra();
 app.get('/tipo', function (req, res) {
     getVenta();
     getCompra();
-    res.send('Compra: ' + compra + '\nVenta: ' + venta);
+
+    var exchangeRate = {} // empty Object
+    var key = 'Tipo de cambio';
+    exchangeRate[key] = []; // empty Array, which you can push() values into
+
+    var data = {
+        Venta: '' + venta + '',
+        Compra: '' + compra + ''
+    };
+    exchangeRate[key].push(data);
+
+    res.send(exchangeRate);
 });
 
 //Function to obtain currency sale exhange rate
 app.get('/tipo/compra', function (req, res) {
     getCompra();
-    res.send('Compra: ' + compra);
 
+    var exchangeRate = {} // empty Object
+    var key = 'Tipo de cambio';
+    exchangeRate[key] = []; // empty Array, which you can push() values into
 
+    var data = {
+        Compra: '' + compra + ''
+    };
+    exchangeRate[key].push(data);
+
+    res.send(exchangeRate);
 });
 
 //Function to obtain currency purchase exhange rate
 app.get('/tipo/venta', function (req, res) {
     getVenta();
-    res.send('Venta: ' + venta);
+    var exchangeRate = {} // empty Object
+    var key = 'Tipo de cambio';
+    exchangeRate[key] = []; // empty Array, which you can push() values into
+
+    var data = {
+        Venta: '' + venta + '',
+    };
+    exchangeRate[key].push(data);
+
+    res.send(exchangeRate);
 });
 //*********************************************************************************************************************************************************/
 
