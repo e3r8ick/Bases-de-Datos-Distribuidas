@@ -18,7 +18,7 @@ include 'topmenu.php';
 <div class="grid-item">
     <h4>Asset Code</h4>
     <input type="text" id="code" name="email" placeholder="Code" class="user" />
-  </div>
+</div>
 
 <h4>Select Status</h4>
 <select id="status">
@@ -42,14 +42,10 @@ include 'topmenu.php';
     function assertEgress(){
         var code = $('#code').val();
         var status = $('#status').val();
-        alert(status);
-        $.post( "http://localhost:8081/asset/assign", 
+        $.post( "http://localhost:8081/asset", 
         { 
-        registrationDate: regDate,
-        codEmployee: employee,
-        codVenue: venue,
-        ubicationDetail: detail,
-        codAsset: code
+            codAsset: code,
+            status: status
         },
         function(data){
         alert(JSON.stringify(data));

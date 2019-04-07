@@ -105,3 +105,14 @@ AS
 	WHERE
 		CodActivo = @AssetCode
 GO
+
+CREATE PROCEDURE spUpdateAssetStatus
+	@AssetCode INT,
+	@AssetStatus CHAR
+AS
+	UPDATE ACTIVOS
+	SET 
+		Estado = @AssetStatus
+	WHERE
+		CodActivo = @AssetCode
+GO

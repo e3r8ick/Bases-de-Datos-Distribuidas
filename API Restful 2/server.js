@@ -300,6 +300,12 @@ app.post("/asset", function (req, res) {
     executeQuery(res, query);
 });
 
+//update status online
+app.post("/asset", function (req, res) {
+    var query = 'EXECUTE spUpdateAssetStatus @AssetCode = \'' + req.body.codAsset +  '\', @AssetStatus = \'' + req.body.status + '\'';
+    executeQuery(res, query);
+});
+
 app.post("/asset", function (req, res) {
     var query = 'EXECUTE sppostAsset @AssetCode = \'' + req.body.codAsset + '\'';
     executeQuery(res, query);
