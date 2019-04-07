@@ -19,6 +19,9 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spAssignAsset')
 	DROP PROCEDURE spAssignAsset
 GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spStatusUpdateAsset')
+	DROP PROCEDURE spStatusUpdateAsset
+GO
 
 CREATE PROCEDURE spCreateAsset
 	@AssetName VARCHAR(50),
@@ -106,13 +109,13 @@ AS
 		CodActivo = @AssetCode
 GO
 
-CREATE PROCEDURE spUpdateAssetStatus
+CREATE PROCEDURE spStatusUpdateAsset
 	@AssetCode INT,
 	@AssetStatus CHAR
 AS
 	UPDATE ACTIVOS
 	SET 
-		Estado = @AssetStatus
+		 Estado = @AssetStatus
 	WHERE
 		CodActivo = @AssetCode
 GO

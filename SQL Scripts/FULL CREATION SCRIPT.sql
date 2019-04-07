@@ -116,6 +116,9 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spAssignAsset')
 	DROP PROCEDURE spAssignAsset
 GO
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spStatusUpdateAsset')
+	DROP PROCEDURE spStatusUpdateAsset
+GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spCreateEmployee')
 	DROP PROCEDURE spCreateEmployee
 GO
@@ -241,6 +244,17 @@ AS
 	UPDATE ACTIVOS
 	SET 
 		FechaRegistro = @AssetRegistrationDate, CodEmpleado = @AssetCodEmployee, CodSede = @AssetCodVenue, DetalleUbicacion = @AssetUbicationDetail
+	WHERE
+		CodActivo = @AssetCode
+GO
+
+CREATE PROCEDURE spStatusUpdateAsset
+	@AssetCode INT,
+	@AssetStatus CHAR
+AS
+	UPDATE ACTIVOS
+	SET 
+		 Estado = @AssetStatus
 	WHERE
 		CodActivo = @AssetCode
 GO

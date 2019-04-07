@@ -42,7 +42,7 @@ include 'topmenu.php';
     function assertEgress(){
         var code = $('#code').val();
         var status = $('#status').val();
-        $.post( "http://localhost:8081/asset", 
+        $.post( "http://localhost:8081/asset/status", 
         { 
             codAsset: code,
             status: status
