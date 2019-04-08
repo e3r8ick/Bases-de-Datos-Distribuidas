@@ -109,7 +109,7 @@ AS
 		SUM(ValorResidual) AS CostoResidual, 
 	
 		AVG(PrecioCompra) AS PromedioInicial,
-		AVG(ValorEnLibros) AS PromedioInicial,
+		AVG(ValorEnLibros) AS PromedioEnLibros,
 		AVG(ValorResidual) AS PromedioResidual,
 
 		SUM(PrecioCompra)/@TipoDeCambio AS CostoInicialDolares,
@@ -117,7 +117,7 @@ AS
 		SUM(ValorResidual)/@TipoDeCambio AS CostoResidualDolares,
 
 		AVG(PrecioCompra)/@TipoDeCambio AS PromedioInicialDolares,
-		AVG(ValorEnLibros)/@TipoDeCambio AS PromedioInicialDolares,
+		AVG(ValorEnLibros)/@TipoDeCambio AS PromedioEnLibrosDolares,
 		AVG(ValorResidual)/@TipoDeCambio AS PromedioResidualDolares
 	FROM #TempTable2
 	GROUP BY CodEmpleado
