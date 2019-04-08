@@ -1,26 +1,26 @@
 USE AdvancedInc
 GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_getActivos')
-	DROP PROCEDURE SP_getActivos
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spGetActivos')
+	DROP PROCEDURE spGetActivos
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_getActivosEmpleado')
-	DROP PROCEDURE SP_getActivosEmpleado
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spGetActivosEmpleado')
+	DROP PROCEDURE spGetActivosEmpleado
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_ActivosEnRango')
-	DROP PROCEDURE SP_ActivosEnRango
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spActivosEnRango')
+	DROP PROCEDURE spActivosEnRango
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_getActivosPorSede')
-	DROP PROCEDURE SP_getActivosPorSede
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spGetActivosPorSede')
+	DROP PROCEDURE spGetActivosPorSede
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_ActivosEnRangoPorSede')
-	DROP PROCEDURE SP_ActivosEnRangoPorSede
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spActivosEnRangoPorSede')
+	DROP PROCEDURE spActivosEnRangoPorSede
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_Top3EmpleadoConMasActivos')
-	DROP PROCEDURE SP_Top3EmpleadoConMasActivos
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spTop3EmpleadoConMasActivos')
+	DROP PROCEDURE spTop3EmpleadoConMasActivos
 GO
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'SP_Top3EmpleadoConMasValor')
-	DROP PROCEDURE SP_Top3EmpleadoConMasValor
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spTop3EmpleadoConMasValor')
+	DROP PROCEDURE spTop3EmpleadoConMasValor
 GO
 
 
@@ -30,7 +30,7 @@ activos asignados, el monto total de los activos según el costo inicial, el mont
 los activos según el valor residual y el monto total de los activos según el valor en libros
 a la fecha de la consulta. La consulta debe mostrar los montos en colones y en dólares
 */
-CREATE PROCEDURE SP_getActivos 
+CREATE PROCEDURE spGetActivos 
 	@TipoDeCambio FLOAT,
 	@CodigoSede INT
 AS
@@ -77,7 +77,7 @@ promedio de los activos según el valor en libros a la fecha de la consulta. La c
 mostrar los montos en colones y en dólares
 */
 
-CREATE PROCEDURE SP_getActivosEmpleado 
+CREATE PROCEDURE spGetActivosEmpleado 
 	@CodigoEmpleado INT, 
 	@TipoDeCambio FLOAT
 AS
@@ -109,7 +109,7 @@ AS
 		SUM(ValorResidual) AS CostoResidual, 
 	
 		AVG(PrecioCompra) AS PromedioInicial,
-		AVG(ValorEnLibros) AS PromedioInicial,
+		AVG(ValorEnLibros) AS PromedioEnLibros,
 		AVG(ValorResidual) AS PromedioResidual,
 
 		SUM(PrecioCompra)/@TipoDeCambio AS CostoInicialDolares,
@@ -117,7 +117,7 @@ AS
 		SUM(ValorResidual)/@TipoDeCambio AS CostoResidualDolares,
 
 		AVG(PrecioCompra)/@TipoDeCambio AS PromedioInicialDolares,
-		AVG(ValorEnLibros)/@TipoDeCambio AS PromedioInicialDolares,
+		AVG(ValorEnLibros)/@TipoDeCambio AS PromedioEnLibrosDolares,
 		AVG(ValorResidual)/@TipoDeCambio AS PromedioResidualDolares
 	FROM #TempTable2
 	GROUP BY CodEmpleado
@@ -133,7 +133,7 @@ puede hacer para todos los activos que cumplan con el rango establecido en los
 parámetros o para los activos que cumplan con el rango y que pertenezcan a una
 categoría específica.
 */
-CREATE PROCEDURE SP_ActivosEnRango
+CREATE PROCEDURE spActivosEnRango
 	@CodigoSede INT,
 	@FechaInicio DATE, 
 	@FechaFinal DATE, 
@@ -158,7 +158,7 @@ el costo inicial, el monto total de los activos según el valor residual y el mon
 activos según el valor en libros a la fecha de la consulta. La consulta debe mostrar los montos
 en colones y en dólares,
 */
-CREATE PROCEDURE SP_getActivosPorSede
+CREATE PROCEDURE spGetActivosPorSede
 	@TipoDeCambio FLOAT
 AS
 	IF OBJECT_ID('dbo.#TempTable', 'U') IS NOT NULL 
@@ -205,7 +205,7 @@ de compra, años de vida útil, empleado que lo tiene asignado. Este reporte se pu
 para todos los activos que cumplan con el rango establecido en los parámetros o para los
 activos que cumplan con el rango y que pertenezcan a una categoría específica.
 */
-CREATE PROCEDURE SP_ActivosEnRangoPorSede
+CREATE PROCEDURE spActivosEnRangoPorSede
 	@FechaInicio DATE, 
 	@FechaFinal DATE, 
 	@Categoria VARCHAR(50)
@@ -227,7 +227,7 @@ Listado de los 3 empleados que tienen mayor cantidad de activos asignados a la f
 debe mostrar la información de cada empleado, la cantidad de activos asignados por
 empleado y el detalle de los activos asignados.
 */
-CREATE PROCEDURE SP_Top3EmpleadoConMasActivos
+CREATE PROCEDURE spTop3EmpleadoConMasActivos
 AS
 	IF OBJECT_ID('dbo.#TempTable3', 'U') IS NOT NULL 
 		DROP TABLE dbo.#TempTable3; 
@@ -251,7 +251,7 @@ GO
 Listado de los 3 empleados cuya suma del valor en libros de los activos asignados es mayor
 Se debe mostrar la información de cada empleado y la de los activos asignados.
 */
-CREATE PROCEDURE SP_Top3EmpleadoConMasValor
+CREATE PROCEDURE spTop3EmpleadoConMasValor
 	/*@TipoDeCambio FLOAT*/
 AS
 	IF OBJECT_ID('dbo.#TempTable', 'U') IS NOT NULL 
