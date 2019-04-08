@@ -33,10 +33,10 @@ include 'topmenu.php';
     window.onload = function() {
       var rol = getCookie("ROL");
       if((rol.localeCompare("A")) == 0){
-        location.href ="reportsAdmin.php";
+        location.href ="AdminReports.php";
       }
       else{
-        location.href ="reportsManager.php";
+        location.href ="ManagerReport.php";
       }
     }
     

@@ -16,36 +16,14 @@ include 'topmenu.php';
 <div class="column">
 <h4>Depreciation method</h4>
     <select id="mounth">
-        <option value="hide">-- Month --</option>
-        <option value="january" rel="icon-temperature">January</option>
-        <option value="february">February</option>
-        <option value="march">March</option>
-        <option value="april">April</option>
-        <option value="may">May</option>
-        <option value="june">June</option>
-        <option value="july">July</option>
-        <option value="august">August</option>
-        <option value="september">September</option>
-        <option value="october">October</option>
-        <option value="november">November</option>
-        <option value="december">December</option>
+        <option value="hide">-- Method --</option>
+        <option value="1">Straight Line</option>
+        <option value="2">Method of sum of digits</option>
     </select> 
-    <h4>Select Asset</h4>
-    <select id="mounth">
-        <option value="hide">-- Month --</option>
-        <option value="january" rel="icon-temperature">January</option>
-        <option value="february">February</option>
-        <option value="march">March</option>
-        <option value="april">April</option>
-        <option value="may">May</option>
-        <option value="june">June</option>
-        <option value="july">July</option>
-        <option value="august">August</option>
-        <option value="september">September</option>
-        <option value="october">October</option>
-        <option value="november">November</option>
-        <option value="december">December</option>
-    </select> <br>
+    <div class="grid-item">
+      <h4>Asset Code</h4>
+      <input type="text" id="code" name="email" placeholder="Code" class="user" />
+  </div>
     <a href=""><div class="btn">Calc</div></a> <!-- End Btn -->
   <div class="grid-item">
     <h4>Result</h4>

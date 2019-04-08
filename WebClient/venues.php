@@ -56,139 +56,12 @@ include 'topmenu.php';
                         <th>Status</th>
                         <th>Venue Admin</th>
                         <th>Admin Date</th>
-                        <th>Cost Center</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-                        <td>Thomas Hardy</td>
-                        <td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>
-                            <a href="#editVenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteVenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-                        <td>Dominique Perrier</td>
-                        <td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(313) 555-5735</td>
-                        <td>
-                            <a href="#editVenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteVenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-						</td>
-                        <td>Maria Anders</td>
-                        <td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(503) 555-9931</td>
-                        <td>
-                            <a href="#editVenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteVenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-						</td>
-                        <td>Fran Wilson</td>
-                        <td>franwilson@mail.com</td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(204) 619-5731</td>
-                        <td>
-                            <a href="#editVenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteVenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>					
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-						</td>
-                        <td>Martin Blank</td>
-                        <td>martinblank@mail.com</td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
-                        <td>(480) 631-2097</td>
-                        <td>
-                            <a href="#editVenueModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteVenueModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr> 
                 </tbody>
             </table>
-			<div class="clearfix">
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Previous</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 	<!-- Edit Modal HTML -->
@@ -287,4 +160,151 @@ include 'topmenu.php';
   
 </form>
   
+<script>
+
+	function getCRUDVenues(){
+	$.get( "http://localhost:8081/venue",{},
+	function(data){
+		var venuesArray = JSON.parse(JSON.stringify(data));
+		var n = venuesArray.length;
+		var m = 0;
+		var venues =  "";
+		for(i = 0; i < n; i++){
+			//create html element
+			var tbody = document.getElementById("tbody");
+			var tr = document.createElement("tr");
+			var tdCheck = document.createElement("td");
+			var spanCheck = document.createElement("span");
+			var inputCheck = document.createElement("input");
+			var labelCheck = document.createElement("label");
+			var tdActions = document.createElement("td");
+			var aActions1 = document.createElement("a");
+			var iActions1 = document.createElement("i");
+			var aActions2 = document.createElement("a");
+			var iActions2 = document.createElement("i");
+
+			//attributes
+			spanCheck.setAttribute("class","custom-checkbox");
+			inputCheck.setAttribute("type","checkbox");
+			inputCheck.setAttribute("id","checkbox"+1);
+			inputCheck.setAttribute("value","1");
+			labelCheck.setAttribute("for","checkbox"+1);
+			aActions1.setAttribute("href","#editEmployeeModal");
+			aActions1.setAttribute("class","edit");
+			aActions1.setAttribute("data-toggle","modal");
+			iActions1.setAttribute("data-toggle","tooltip");
+			iActions1.setAttribute("class","material-icons");
+			iActions1.setAttribute("title","Edit");
+			aActions2.setAttribute("href","#deleteEmployeeModal");
+			aActions2.setAttribute("class","delete");
+			aActions2.setAttribute("data-toggle","modal");
+			iActions2.setAttribute("data-toggle","tooltip");
+			iActions2.setAttribute("class","material-icons");
+			iActions2.setAttribute("title","Delete");
+
+			iActions1.innerText = "";
+			iActions2.innerText = "";
+
+			//appends
+			tbody.appendChild(tr);
+			tr.appendChild(tdCheck);
+			tdCheck.appendChild(spanCheck);
+			spanCheck.appendChild(inputCheck);
+			spanCheck.appendChild(labelCheck);
+
+			//fill the info from de DB
+			venueS =  JSON.parse(JSON.stringify(venuesArray));
+			var selected = JSON.stringify(JSON.parse(JSON.stringify(venueS[i])));
+			selected = selected.split(",");
+			m = selected.length;
+
+			//venues data
+			var tdCod = document.createElement("td");
+			var tdNombre = document.createElement("td");
+			var tdProvincia = document.createElement("td");
+			var tdCanton = document.createElement("td");
+			var tdDistrito = document.createElement("td");
+			var tdUbicacion = document.createElement("td");
+			var tdCodEmpleado = document.createElement("td");
+			var tdAdminDate = document.createElement("td");
+			var tdEstado = document.createElement("td");
+			var tdDescripcion = document.createElement("td");
+
+			for(j = 0; j < m; j++){
+				var CodSede = selected[0].split(":")[1];
+				var Nombre = selected[1].split(":")[1].replace(/"/g,'');
+				var Provincia = selected[2].split(":")[1];
+				var Canton = selected[3].split(":")[1];
+				var Distrito = selected[4].split(":")[1];
+				var Ubicacion = selected[5].split(":")[1];
+				var CodEmpleado =selected[6].split(":")[1].replace(/"/g,'');
+				var AdminDate = selected[7].split(":")[1].replace(/"/g,'');
+				var Estado = selected[8].split(":")[1].replace(/"/g,'')
+				var Descripcion = selected[9].split(":")[1].replace(/"/g,'').replace(/}/g,'');
+
+				
+				tdCodSede.innerText = CodSede
+				tdNombre.innerText = Nombre
+				tdProvincia.innerText = Provincia
+				tdCanton.innerText = Canton
+				tdDistrito.innerText = Distrito
+				tdUbicacion.innerText = Ubicacion
+				tdCodEmpleado.innerText = CodEmpleado
+				tdAdminDate.innerText = AdminDate
+				tdEstado.innerText = Estado
+				tdDescripcion.innerText = Descripcion
+				
+			}
+
+			//appends
+			tr.appendChild(tdCodSede);
+			tr.appendChild(tdNombre);
+			tr.appendChild(tdProvincia);
+			tr.appendChild(tdDescripcion);
+			tr.appendChild(tdCanton);
+			tr.appendChild(tdDistrito);
+			tr.appendChild(tdUbicacion);
+			tr.appendChild(tdCodEmpleado);
+			tr.appendChild(tdAdminDate);
+			tr.appendChild(tdEstado);
+			tr.appendChild(tdActions);
+			tdActions.appendChild(aActions1);
+			tdActions.appendChild(aActions2);
+			aActions1.appendChild(iActions1);
+			aActions2.appendChild(iActions2);
+
+
+		}
+
+	},"json");
+	}
+
+	function addEmployee(){
+	var name = $('#name').val();
+	var status = $('#status').val();
+	var photo = $('#photo').val();
+	var codSede = $('#codSede').val();
+	var codDep = $('#codDep').val();
+	var date = $('#date').val();
+	var job = $('#job').val();
+	var id = $('#id').val();
+	$.post( "http://localhost:8081/venue",
+	{
+		name: name,
+		status: status,
+		photo: photo,
+		codSede: codSede,
+		codDepartamento: codDep,
+		date: date,
+		job: job,
+		id: id
+	},
+	function(data){
+		location.href ="venues.php";
+	},"json");
+}
+
+</script>
+
+</body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>

@@ -40,10 +40,11 @@ include 'topmenu.php';
         var code = $('#code').val();
         var venue = $('#venue').val();
         var employee = $('#employee').val();
-        $.post( "http://localhost:8081/asset", 
+        $.post( "http://localhost:8081/asset/venue", 
         { 
             codAsset: code,
-            status: status
+            codEmployee: employee,
+            codVenue: venue
         },
         function(data){
         alert(JSON.stringify(data));
