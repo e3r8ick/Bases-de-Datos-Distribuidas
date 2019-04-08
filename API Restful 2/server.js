@@ -209,13 +209,13 @@ app.post("/employee", function (req, res) {
 });
 
 //Function to update a employee
-app.post("/employee", function (req, res) {
+app.post("/employee/update", function (req, res) {
     var query = 'EXECUTE spUpdateEmployee @EmployeeName = \'' + req.body.name + '\', @EmployeeStatus = \'' + req.body.status + '\', @EmployeePhoto = \'' + req.body.photo + '\', @EmployeeCodSede = \'' + req.body.codSede + '\', @EmployeeCodDepartamento = \'' + req.body.codDepartamento + '\', @EmployeeDate = \'' + req.body.date + '\', @EmployeeJob = \'' + req.body.job + '\', @EmployeeId = \'' + req.body.id + '\'';
     executeQuery(res, query);
 });
 
 //Function to delete a employee using the id
-app.post("/employee", function (req, res) {
+app.post("/employee/delete", function (req, res) {
     var query = 'EXECUTE spDeleteEmployee @EmployeeId = \'' + req.body.id + '\'';
     executeQuery(res, query);
 });
@@ -241,13 +241,13 @@ app.post("/venue", function (req, res) {
 });
 
 //Function to update a venue
-app.post("/venue", function (req, res) {
+app.post("/venue/update", function (req, res) {
     var query = 'EXECUTE spUpdateVenue @VenueCode = \'' + req.body.codVenue + '\', @VenueName = \'' + req.body.name + '\', @VenueDescription = \'' + req.body.description + '\', @VenueProvincia = \'' + req.body.provincia + '\', @VenueCanton = \'' + req.body.canton + '\', @VenueDistrito = \'' + req.body.distrito + '\', @VenueUbicationDetail = \'' + req.body.ubication + '\', @VenueStatus = \'' + req.body.status + '\', @VenueCodEmpleado = \'' + req.body.codEmpleado + '\', @VenueAdminDate = \'' + req.body.adminDate + '\'';
     executeQuery(res, query);
 });
 
 //Function to delete a venue using the venue id
-app.post("/venue", function (req, res) {
+app.post("/venue/delete", function (req, res) {
     var query = 'EXECUTE spDeleteVenue @VenueCode = \'' + req.body.codVenue + '\'';
     executeQuery(res, query);
 });
@@ -273,13 +273,13 @@ app.post("/asset", function (req, res) {
 });
 
 //Function to update a asset information
-app.post("/asset", function (req, res) {
+app.post("/asset/update", function (req, res) {
     var query = 'EXECUTE spUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetName = \'' + req.body.name + '\', @AssetDescription = \'' + req.body.description + '\', @AssetCategory = \'' + req.body.category + '\', @AssetPhoto = \'' + req.body.photo + '\', @AssetPrice = \'' + req.body.price + '\', @AssetLifeSpan = \'' + req.body.lifeSpan + '\', @AssetPjeDepreciacion = \'' + req.body.pjeDepreciacion + '\', @AssetBuyingDate = \'' + req.body.buyingDate + '\', @AssetRegistrationDate = \'' + req.body.registrationDate + '\', @AssetWarrantyDate = \'' + req.body.warrantyDate + '\', @AssetValorResidual = \'' + req.body.valorResidual + '\', @AssetCentroCosto = \'' + req.body.centroCosto + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\', @AssetUbicationDetail = \'' + req.body.ubicationDetail + '\', @AssetStatus = \'' + req.body.status + '\'';
     executeQuery(res, query);
 });
 
 //Function to delete a asset
-app.post("/asset", function (req, res) {
+app.post("/asset/delete", function (req, res) {
     var query = 'EXECUTE spDeleteAsset @AssetCode = \'' + req.body.codAsset + '\'';
     executeQuery(res, query);
 });
@@ -301,6 +301,28 @@ app.post("/asset/venue", function (req, res) {
     var query = 'EXECUTE spVenueUpdateAsset @AssetCode = \'' + req.body.codAsset + '\', @AssetCodEmployee = \'' + req.body.codEmployee + '\', @AssetCodVenue = \'' + req.body.codVenue + '\'';
     executeQuery(res, query);
 });
+//*********************************************************************************************************************************************************/
+
+//*** REPORTES ADMIN **************************************************************************************************************************************/
+//Function to get the report from all assets assigned to a specific venue
+app.post('/report/admin/venue', function (req, res) {
+    var query = 'EXECUTE spGetActivos @TipoDeCambio = \'' + venta + '\', @CodigoSede = \'' + req.body.codVenue + '\';';
+    executeQuery(res, query);
+});
+
+//Function to get the report from all assets assigned to a specific employee
+app.post('/report/admin/employee', function (req, res) {
+    var query = 'EXECUTE spGetActivosEmpleado @TipoDeCambio = \'' + venta + '\', @CodigoEmpleado = \'' + req.body.codEmployee + '\';';
+    executeQuery(res, query);
+});
+
+//Function to get the report from all assets assigned to a specific venue in a time range
+app.post('/report/admin/timerange', function (req, res) {
+    var query = 'EXECUTE spActivosEnRango @TipoDeCambio = \'' + venta + '\', @CodigoEmpleado = \'' + req.body.codEmployee + '\';';
+    executeQuery(res, query);
+});
+
+
 //*********************************************************************************************************************************************************/
 
 //Setting up server
