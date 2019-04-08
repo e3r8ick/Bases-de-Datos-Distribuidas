@@ -140,11 +140,11 @@ CREATE PROCEDURE spActivosEnRango
 	@Categoria VARCHAR(50)
 AS
 	IF @Categoria = 'None' OR @Categoria = 'Ninguna'
-		SELECT  CodActivo, A.Nombre, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre
+		SELECT  CodActivo, A.Nombre AS NombreActivo, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre AS NombreEmpleado
 		FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado 
 		WHERE A.Estado = 'A' AND A.CodSede=@CodigoSede AND Categoria IS NULL AND @FechaInicio<=FechaCompra AND @FechaFinal>=DATEADD(year,VidaUtil/365,FechaCompra)
 	ELSE
-		SELECT  CodActivo, A.Nombre, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre
+		SELECT  CodActivo, A.Nombre AS NombreActivo, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre AS NombreEmpleado
 		FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado 
 		WHERE A.Estado = 'A' AND A.CodSede=@CodigoSede AND Categoria = @Categoria AND @FechaInicio<=FechaCompra AND @FechaFinal<=DATEADD(year,VidaUtil/365,FechaCompra)
 	
@@ -185,9 +185,9 @@ AS
 
 	SELECT CodSede, 
 		COUNT(CodSede) AS ActivosAsignados,
-		SUM(PrecioCompra) AS CostoInicial,
-		SUM(ValorEnLibros) AS CostoEnLibros,  
-		SUM(ValorResidual) AS CostoResidual, 
+		SUM(PrecioCompra) AS CostoInicialColones,
+		SUM(ValorEnLibros) AS CostoEnLibrosColones,  
+		SUM(ValorResidual) AS CostoResidualColones, 
 		SUM(PrecioCompra)/@TipoDeCambio AS CostoInicialDolares,
 		SUM(ValorEnLibros)/@TipoDeCambio AS CostoEnLibrosDolares,
 		SUM(ValorResidual)/@TipoDeCambio AS CostoResidualDolares
@@ -211,12 +211,12 @@ CREATE PROCEDURE spActivosEnRangoPorSede
 	@Categoria VARCHAR(50)
 AS
 	IF @Categoria = 'None' OR @Categoria = 'Ninguna'
-		SELECT  A.CodSede, A.Nombre, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre
+		SELECT  A.CodSede, A.Nombre AS NombreActivo, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre AS NombreEmpleado
 		FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado 
 		WHERE A.Estado = 'A' AND Categoria IS NULL AND @FechaInicio<=FechaCompra AND @FechaFinal>=DATEADD(year,VidaUtil/365,FechaCompra)
 		ORDER BY A.CodSede, A.CodActivo
 	ELSE
-		SELECT  A.CodSede, CodActivo, A.Nombre, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre
+		SELECT  A.CodSede, CodActivo, A.Nombre AS NombreActivo, PrecioCompra, ValorResidual, Categoria, FechaCompra, VidaUtil/365 AS AñosVidaUtil, A.CodEmpleado, E.Nombre AS NombreEmpleado
 		FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado 
 		WHERE A.Estado = 'A' AND Categoria = @Categoria AND @FechaInicio<=FechaCompra AND @FechaFinal<=DATEADD(year,VidaUtil/365,FechaCompra)
 		ORDER BY A.CodSede, A.CodActivo
@@ -239,7 +239,7 @@ AS
 	GROUP BY E.CodEmpleado
 	ORDER BY CantidadActivos DESC
 
-	SELECT E.CodEmpleado, E.Nombre, E.Cedula, E.CodSede, A.CodActivo, A.Nombre, A.Categoria, A.Descripcion, A.CodSede, A.DetalleUbicacion
+	SELECT E.CodEmpleado, E.Nombre AS NombreEmpleado, E.Cedula, E.CodSede AS CodSedeEmpleado, A.CodActivo, A.Nombre AS NombreActivo, A.Categoria, A.Descripcion, A.CodSede AS CodSedeActivo, A.DetalleUbicacion
 	FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado, #TempTable3
 	WHERE #TempTable3.CodEmpleado=E.CodEmpleado
 	ORDER BY E.CodEmpleado, A.CodActivo
@@ -290,7 +290,7 @@ AS
 	FROM #TempTable2
 	GROUP BY CodEmpleado
 
-	SELECT E.CodEmpleado, E.Nombre, E.Cedula, E.CodSede, A.CodActivo, A.Nombre, A.Categoria, A.Descripcion, A.CodSede, A.DetalleUbicacion
+	SELECT E.CodEmpleado, E.Nombre AS NombreEmpleado, E.Cedula, E.CodSede AS CodSedeEmpleado, A.CodActivo, A.Nombre AS NombreActivo, A.Categoria, A.Descripcion, A.CodSede AS CodSedeActivo, A.DetalleUbicacion
 	FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado, #TempTable3
 	WHERE #TempTable3.CodEmpleado=E.CodEmpleado
 	ORDER BY E.CodEmpleado, A.CodActivo
