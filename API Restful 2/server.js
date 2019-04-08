@@ -318,11 +318,35 @@ app.post('/report/admin/employee', function (req, res) {
 
 //Function to get the report from all assets assigned to a specific venue in a time range
 app.post('/report/admin/timerange', function (req, res) {
-    var query = 'EXECUTE spActivosEnRango @TipoDeCambio = \'' + venta + '\', @CodigoEmpleado = \'' + req.body.codEmployee + '\';';
+    var query = 'EXECUTE spActivosEnRango @CodigoSede = \'' + req.body.codVenue + '\', @FechaInicio = \'' + req.body.startDate + '\', @FechaFinal = \'' + req.body.endDate + '\', @Categoria = \'' + req.body.category + '\';';
+    executeQuery(res, query);
+});
+//*********************************************************************************************************************************************************/
+
+//*** REPORTES MANAGER ************************************************************************************************************************************/
+//Function to get the report from all assets assigned per venue
+app.post('/report/manager/venue', function (req, res) {
+    var query = 'EXECUTE spGetActivosPorSede @TipoDeCambio = \'' + venta + '\';';
     executeQuery(res, query);
 });
 
+//Function to get the report from all assets assigned to every venue in a time range
+app.post('/report/manager/timerange', function (req, res) {
+    var query = 'EXECUTE spActivosEnRangoPorSede @FechaInicio = \'' + req.body.startDate + '\', @FechaFinal = \'' + req.body.endDate + '\', @Categoria = \'' + req.body.category + '\';';
+    executeQuery(res, query);
+});
 
+//Function to get the report from top 3 employees with more assets
+app.post('/report/manager/topassets', function (req, res) {
+    var query = 'EXECUTE spTop3EmpleadoConMasActivos;';
+    executeQuery(res, query);
+});
+
+//Function to get the report from top 3 employees with more value in assets
+app.post('/report/manager/topvalue', function (req, res) {
+    var query = 'EXECUTE spTop3EmpleadoConMasValor;';
+    executeQuery(res, query);
+});
 //*********************************************************************************************************************************************************/
 
 //Setting up server
