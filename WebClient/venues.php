@@ -163,8 +163,7 @@ include 'topmenu.php';
 <script>
 
 	function getCRUDVenues(){
-    //$.get( "http://localhost:8081/venue",{},
-  	$.get( "http://192.168.0.197:8081/venue",{},
+    $.get( "http://localhost:8081/venue",{},
   	function(data){
   		var venuesArray = JSON.parse(JSON.stringify(data));
       alert(venuesArray);
