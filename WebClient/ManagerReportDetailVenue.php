@@ -4,6 +4,18 @@ include 'topmenu.php';
 ?>
 
 <!DOCTYPE html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/crud.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/grid.css">
@@ -11,16 +23,81 @@ include 'topmenu.php';
 
 <form method="post" action="reportsManager.html">
 <div class="box">
-<h4>Real-time exchange rate:_____ </h4>
-<h1>Asset reports assigned by headquarters</h1>
-<div class="column">
-  <div class="grid-item">
-    <input type="text" id="user" name="UtilityYears" placeholder="Years of useful life" class="user" />
-    <input type="text" id="user" name="Datepurchase" placeholder="Purchase date" class="user" />
-    
-  </div>
+  <h4>Tiempo Real precio venta:608.5800000 </h4>
+  <h4>Tiempo Real precio compra:601.9900000 </h4>
 
-</div>
+<h1>Activos en un rango</h1>
+<div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+					          </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                      <th>Cod Activo</th>
+                        <th>Precio Activo</th>
+						            <th>Precio Compra</th>
+                        <th>Valor Residual</th>
+                        <th>Categoria</th>
+                        <th>Fecha Compra</th>
+						            <th>Años Vida Útil</th>
+                        <th>Cod Empleado</th>
+                        <th>Nombre Empleado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3</td>
+                        <td>Omnispex</td>
+						            <td>10640</td>
+                        <td>9000</td>
+                        <td>Utilidades</td>
+                        <td>2018-02-19</td>
+                        <td>3</td>
+                        <td>10</td>
+                        <td>Jimena</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>Binoculares</td>
+						            <td>8500</td>
+                        <td>9000</td>
+                        <td>Utilidades</td>
+                        <td>2018-03-19</td>
+                        <td>10</td>
+                        <td>14</td>
+                        <td>Jimena</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>Binoculares</td>
+						            <td>8500</td>
+                        <td>9000</td>
+                        <td>Utilidades</td>
+                        <td>2018-03-19</td>
+                        <td>10</td>
+                        <td>14</td>
+                        <td>Kimberly</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>Uniforme</td>
+						            <td>500</td>
+                        <td>9000</td>
+                        <td>Utilidades</td>
+                        <td>2018-04-23</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>Teremir</td>
+                    </tr>
+                  <tr>
+              </tbody>
+        </div>
+    </div>
 
 </div> <!-- End Box -->
 

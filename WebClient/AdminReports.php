@@ -22,7 +22,7 @@ include 'topmenu.php';
         <option value="Cartago">Cartago</option>
         <option value="Heredia">Heredia</option>
     </select>
-<a href="venueReport.php"><div class="btn">Get report</div></a>
+<a href="AdminVenueReport.php"><div class="btn">Get report</div></a>
   </div>
   <div class="grid-item">
     <h4>Total assets of:</h4>
@@ -30,14 +30,14 @@ include 'topmenu.php';
         <option value="hide">-- Employee --</option>
         <option value="Employee" rel="icon-temperature">Brandon</option>
     </select>
-<a href="employeeReport.php"><div class="btn">Get report</div></a>
+<a href="AdminEmployeeReport.php"><div class="btn">Get report</div></a>
   </div>
   <div class="grid-item">
     <h4>Total assets by year range</h4>
     <input type="text" name="date" placeholder="Date" class="user" />
   </div>
 </div>
-<a href="yearReport.php"><div class="btn">Get report</div></a> <!-- End Btn -->
+<a href="AdminYearReport.php"><div class="btn">Get report</div></a> <!-- End Btn -->
 
 
 </div> <!-- End Box -->

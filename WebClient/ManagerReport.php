@@ -22,12 +22,12 @@ include 'topmenu.php';
         <option value="Cartago">Cartago</option>
         <option value="Heredia">Heredia</option>
     </select>
-<a href="reporteSede.php"><div class="btn">Get report</div></a>
+<a href="ManagerVenueReport.php"><div class="btn">Get report</div></a>
   </div>
   <div class="grid-item">
     <h4>Total assets by venue for year range:</h4>
     <input type="text" name="rango" placeholder="Rango" class="user" />
-<a href="reporteEmpleado.php"><div class="btn">Ver reporte</div></a>
+<a href="ManagerReportDetailVenue.php"><div class="btn">Get Report</div></a>
   </div>
   <div class="grid-item">
     <h4>List of 3 employees with the highest amount of assets</h4>
