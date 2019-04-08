@@ -288,7 +288,8 @@ AS
 		SUM(ValorResidual)/@TipoDeCambio AS CostoResidualDolares*/
 		INTO #TempTable3
 	FROM #TempTable2
-	GROUP BY CodEmpleado
+	GROUP BY CodEmpleado, ValorEnLibros
+	ORDER BY ValorEnLibros DESC
 
 	SELECT E.CodEmpleado, E.Nombre AS NombreEmpleado, E.Cedula, E.CodSede AS CodSedeEmpleado, A.CodActivo, A.Nombre AS NombreActivo, A.Categoria, A.Descripcion, A.CodSede AS CodSedeActivo, A.DetalleUbicacion
 	FROM ACTIVOS AS A JOIN EMPLEADOS AS E ON A.CodEmpleado = E.CodEmpleado, #TempTable3
