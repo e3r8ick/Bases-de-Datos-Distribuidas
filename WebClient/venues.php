@@ -59,8 +59,8 @@ include 'topmenu.php';
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                </tbody>
+				<tbody id="tbody">
+				</tbody>
             </table>
         </div>
     </div>
@@ -166,8 +166,7 @@ include 'topmenu.php';
     $.get( "http://localhost:8081/venue",{},
   	function(data){
   		var venuesArray = JSON.parse(JSON.stringify(data));
-      alert(venuesArray);
-  		var n = venuesArray.length;
+	    var n = venuesArray.length;
   		var m = 0;
   		var venues =  "";
   		for(i = 0; i < n; i++){
@@ -220,7 +219,7 @@ include 'topmenu.php';
   			m = selected.length;
 
   			//venues data
-  			var tdCod = document.createElement("td");
+  			var tdCodSede = document.createElement("td");
   			var tdNombre = document.createElement("td");
   			var tdProvincia = document.createElement("td");
   			var tdCanton = document.createElement("td");
@@ -234,13 +233,13 @@ include 'topmenu.php';
   			for(j = 0; j < m; j++){
   				var CodSede = selected[0].split(":")[1];
   				var Nombre = selected[1].split(":")[1].replace(/"/g,'');
-  				var Provincia = selected[2].split(":")[1];
-  				var Canton = selected[3].split(":")[1];
-  				var Distrito = selected[4].split(":")[1];
-  				var Ubicacion = selected[5].split(":")[1];
+  				var Provincia = selected[2].split(":")[1].replace(/"/g,'');;
+  				var Canton = selected[3].split(":")[1].replace(/"/g,'');;
+  				var Distrito = selected[4].split(":")[1].replace(/"/g,'');;
+  				var Ubicacion = selected[5].split(":")[1].replace(/"/g,'');;
   				var CodEmpleado =selected[6].split(":")[1].replace(/"/g,'');
   				var AdminDate = selected[7].split(":")[1].replace(/"/g,'');
-  				var Estado = selected[8].split(":")[1].replace(/"/g,'')
+  				var Estado = selected[8].split(":")[1].replace(/"/g,'');
   				var Descripcion = selected[9].split(":")[1].replace(/"/g,'').replace(/}/g,'');
 
 
@@ -280,15 +279,15 @@ include 'topmenu.php';
   	},"json");
 	}
 
-	function addEmployee(){
-  	var name = $('#name').val();
-  	var status = $('#status').val();
-  	var photo = $('#photo').val();
-  	var codSede = $('#codSede').val();
-  	var codDep = $('#codDep').val();
-  	var date = $('#date').val();
-  	var job = $('#job').val();
-  	var id = $('#id').val();
+	function addVenue(){
+		var name = $('#name').val();
+		var status = $('#status').val();
+		var photo = $('#photo').val();
+		var codSede = $('#codSede').val();
+		var codDep = $('#codDep').val();
+		var date = $('#date').val();
+		var job = $('#job').val();
+		var id = $('#id').val();
   	$.post( "http://localhost:8081/venue",
   	{
   		name: name,

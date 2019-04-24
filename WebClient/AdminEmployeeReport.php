@@ -20,11 +20,10 @@ include 'topmenu.php';
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="css/grid.css">
 
-
-<form method="post" action="reportsManager.html">
+<body onload="getReport()">
 <div class="box">
-  <h4>Tiempo Real precio venta:608.5800000 </h4>
-  <h4>Tiempo Real precio compra:601.9900000 </h4>
+    <h4 id="venta"></h4>
+    <h4 id="compra"></h4>
 
 <h1>Activos para un empleado</h1>
 <div class="container">
@@ -36,48 +35,119 @@ include 'topmenu.php';
                 </div>
             </div>
             <table class="table table-striped table-hover">
-                <thead>
+                <thead id="table">
                     <tr>
-                      <th>Cod Empleado</th>
-                      <th>Activos Asignados</th>
-					            <th>Costo Inicial</th>
-                      <th>Costo en Libros</th>
-                      <th>Costo Residua</th>
-                      <th>Promedio Inicial</th>
-                      <th>Promedio en Libros</th>
-                      <th>Promedio Recidual</th>
-                      <th>Costo Inicial Dolares</th>
-                      <th>Costo en Libros Dolares</th>
-                      <th>Costo Residual Dolares</th>
-                      <th>Promedio Inicial Dolares</th>
-                      <th>Promedio en Libros Dolares</th>
-                      <th>Promedio Recidual Dolares</th>
+                        <th>Cod Empleado</th>
+                        <th>Activos Asignados</th>
+                        <th>Costo Inicial</th>
+                        <th>Costo en Libros</th>
+                        <th>Costo Residua</th>
+                        <th>Promedio Inicial</th>
+                        <th>Promedio en Libros</th>
+                        <th>Promedio Recidual</th>
+                        <th>Costo Inicial Dolares</th>
+                        <th>Costo en Libros Dolares</th>
+                        <th>Costo Residual Dolares</th>
+                        <th>Promedio Inicial Dolares</th>
+                        <th>Promedio en Libros Dolares</th>
+                        <th>Promedio Recidual Dolares</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>10</td>
-                        <td>8</td>
-						            <td>143920</td>
-                        <td>128939.675324675</td>
-                        <td>92050</td>
-                        <td>17990</td>
-                        <td>16117.4594155844</td>
-                        <td>11506</td>
-                        <td>238.238702201622</td>
-                        <td>213.238702201622</td>
-                        <td>152.975434530707</td>
-                        <td>29.7798377752028</td>
-                        <td>26.6801182181541</td>
-                        <td>19.0465154775699 </td>
-                    </tr>
-                  <tr>
-              </tbody>
         </div>
     </div>
 
 </div> <!-- End Box -->
+</body>
+<script>
+function getReport(){
+        var id = getCookie("EmpleadoReport")
+        //dolar 
+        $.get( "http://localhost:8081/tipo",{},
+			function(data){
+                var tipo = JSON.stringify(data);
+                tipo = tipo.split('"');
+                document.getElementById("venta").innerText = "Tiempo Real precio venta: " + tipo[5];
+                document.getElementById("compra").innerText = "Tiempo Real precio compra: " + tipo[9];
+					
+            },"json");
+            
+        //report    
+        $.post( "http://localhost:8081/report/admin/employee",
+		{
+			codEmployee: id
+		},
+			function(data){
+                var report = JSON.stringify(data);
+                report = report.split(",");
 
-</form>
+                //create elements
+                var table = document.getElementById("table");
+                var tr = document.createElement("tr");
+                var codEmpleado = document.createElement("th");
+                var activos = document.createElement("th");
+                var costo = document.createElement("th");
+                var libros = document.createElement("th");
+                var residual = document.createElement("th");
+                var costoP = document.createElement("th");
+                var librosP = document.createElement("th");
+                var residualP = document.createElement("th");
+                var costoD = document.createElement("th");
+                var librosD = document.createElement("th");
+                var residualD = document.createElement("th");
+                var librosDP = document.createElement("th");
+                var residualDP = document.createElement("th");
+
+                //values
+                codEmpleado.innerText = report[0].split(":")[1];
+                activos.innerText = report[1].split(":")[1];
+                costo.innerText = report[2].split(":")[1];
+                libros.innerText = report[3].split(":")[1];
+                residual.innerText = report[4].split(":")[1];
+                costoP.innerText = report[5].split(":")[1];
+                librosP.innerText = report[6].split(":")[1];
+                residualP.innerText = report[7].split(":")[1];
+                costoD.innerText = report[8].split(":")[1];
+                librosD.innerText = report[9].split(":")[1];
+                residualD.innerText = report[10].split(":")[1];
+                librosDP.innerText = report[11].split(":")[1];
+                residualDP.innerText = report[12].split(":")[1];
+
+                //append items
+                table.appendChild(tr);
+                tr.appendChild(codEmpleado);
+                tr.appendChild(activos);
+                tr.appendChild(costo);
+                tr.appendChild(libros);
+                tr.appendChild(residual);
+                tr.appendChild(costoP);
+                tr.appendChild(librosP);
+                tr.appendChild(residualP);
+                tr.appendChild(costoD);
+                tr.appendChild(librosD);
+                tr.appendChild(residualD);
+                tr.appendChild(librosDP);
+                tr.appendChild(residualDP);
+					
+			},"json");
+    }
+
+    ///return an specific cookie
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+          }
+      }
+      return "";
+    }
+
+</script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>

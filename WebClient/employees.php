@@ -156,20 +156,22 @@ include 'topmenu.php';
 		<div id="deleteEmployeeModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form>
+					<div>
 						<div class="modal-header">
 							<h4 class="modal-title">Delete Employee</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							<p>Are you sure you want to delete these Records?</p>
-							<p class="text-warning"><small>This action cannot be undone.</small></p>
+						<div class="form-group">
+								<label>Employee ID</label>
+								<input type="text" id="deleteID" class="form-control" required>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-							<input type="submit" class="btn btn-danger" value="Delete">
+							<input type="submit" onclick="deleteEmployee()" class="btn btn-danger" value="Delete">
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -183,7 +185,7 @@ include 'topmenu.php';
   function getCRUDEmployees(){
     $.get( "http://localhost:8081/employee",{},
     function(data){
-	  var employeesArray = JSON.parse(JSON.stringify(data));
+		var employeesArray = JSON.parse(JSON.stringify(data));
 	  var n = employeesArray.length;
 	  var m = 0;
 	  var employeeS =  "";
@@ -294,14 +296,14 @@ include 'topmenu.php';
   }
 
   function addEmployee(){
-	var name = $('#name').val();
-	var status = $('#status').val();
-	var photo = $('#photo').val();
-	var codSede = $('#codSede').val();
-	var codDep = $('#codDep').val();
-	var date = $('#date').val();
-	var job = $('#job').val();
-	var id = $('#id').val();
+		var name = $('#name').val();
+		var status = $('#status').val();
+		var photo = $('#photo').val();
+		var codSede = $('#codSede').val();
+		var codDep = $('#codDep').val();
+		var date = $('#date').val();
+		var job = $('#job').val();
+		var id = $('#id').val();
 	$.post( "http://localhost:8081/employee",
 	{
 		name: name,
@@ -318,6 +320,18 @@ include 'topmenu.php';
     },"json");
   }
 
+	function deleteEmployee(){
+		var id = $('#deleteID').val();
+		$.post( "http://localhost:8081/employee/delete",
+		{
+			id: id
+		},
+			function(data){
+				alert(data);
+					location.href ="employees.php";
+			},"json");
+	}
+	
 </script>
 
 </body>
